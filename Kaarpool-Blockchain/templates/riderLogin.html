@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <title>Login Page</title>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      <link rel="stylesheet" href="./static/css/style.css">
+   </head>
+   <body>
+      <!-- partial:index.partial.html -->
+      <div class="box-form">
+         <div class="left">
+            <div class="overlay">
+               <h1>Kaarpool</h1>
+               <p>Travel safely with us.</p>
+            </div>
+         </div>
+         <form action="riderLogin" method="post">
+            <div class="right">
+            <h1>Rider's Login</h1>
+            <p>Don't have an account? <a href="riderRegister.html">Register here</a> . It takes less than a minute.</p>
+            <div class="inputs">
+               <input type="text" placeholder="user name" name="username" id="username">
+               <br>
+               <input type="password" placeholder="password" name="password" id="password">
+            </div>
+            <br><br>
+            <div class="remember-me--forget-password">
+               <!-- Angular -->
+               <label>
+               <input type="checkbox" name="item" checked/>
+               <span class="text-checkbox">Remember me</span>
+               </label>
+               <p>forget password?</p>
+            </div>
+            <br>
+<!--            <input type='submit' name='submit' value='Send email'>-->
+            <button onclick="loginFunction()">Login</button>
+         </div>
+         </form>
+      </div>
+      <!-- partial -->
+   </body>
+   <script type = "text/javascript"
+         src = "{{ url_for('static', filename = 'js/riderLogin.js') }}" ></script>
+<!--   <script src="./static/js/riderLogin.js"></script>-->
+</html>
