@@ -75,8 +75,9 @@ def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseN
     con = sql.connect("SQLiteDB\\driverData.db")
     cur = con.cursor()
 
-    cur.execute("INSERT INTO driver (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity) VALUES (?,?,?,?,?,?,?,?)",
-                (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity))
+    cur.execute(
+        "INSERT INTO driver (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity) VALUES (?,?,?,?,?,?,?,?)",
+        (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity))
     con.commit()
     con.close()
 
@@ -93,8 +94,9 @@ def insertRiderData(name, contactNo, password, gender, email):
 def insertDriverRouteData(name, source, destination, availableSeats, starttime, endtime):
     con = sql.connect("SQLiteDB\\driverRouteData.db")
     cur = con.cursor()
-    cur.execute("INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime) VALUES (?,?,?,?,?,?)",
-                (name, source, destination, availableSeats, starttime, endtime))
+    cur.execute(
+        "INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime) VALUES (?,?,?,?,?,?)",
+        (name, source, destination, availableSeats, starttime, endtime))
     con.commit()
     con.close()
 
@@ -112,79 +114,114 @@ def retrieveDriverData():
     con = sql.connect("SQLiteDB\\driverData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driver")
-    recipe = cur.fetchall()
+    driverData = cur.fetchall()
     con.close()
-    return recipe
+    return driverData
 
 
 def retrieveRiderData():
     con = sql.connect("SQLiteDB\\riderData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM rider")
-    recipe = cur.fetchall()
+    riderData = cur.fetchall()
     con.close()
-    return recipe
-
+    return riderData
 
 
 def retrieveDriverRouteData():
     con = sql.connect("SQLiteDB\\driverRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driverRoute")
-    recipe = cur.fetchall()
+    driverRouteData = cur.fetchall()
     con.close()
-    return recipe
+    return driverRouteData
 
 
 def retrieveRiderRouteData():
     con = sql.connect("SQLiteDB\\riderRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM riderRoute")
-    recipe = cur.fetchall()
+    riderRouteData = cur.fetchall()
     con.close()
-    return recipe
+    return riderRouteData
 
 
 def retrieveDriverDataWithName(name):
     con = sql.connect("SQLiteDB\\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE name='{name}'")
-    recipe = cur.fetchall()
+    driverDataWithName = cur.fetchall()
     con.close()
-    return recipe
+    return driverDataWithName
 
 
 def retrieveRiderDataWithName(name):
     con = sql.connect("SQLiteDB\\riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE name='{name}'")
-    recipe = cur.fetchall()
+    riderDataWithName = cur.fetchall()
     con.close()
-    return recipe
+    return riderDataWithName
+
+
+def retrieveDriverDataWithNameAndPassword(name, password):
+    con = sql.connect("SQLiteDB\\driverData.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT * FROM driver WHERE name='{name}' and password='{password}'")
+    driverDataWithNameAndPwd = cur.fetchall()
+    con.close()
+    return driverDataWithNameAndPwd
+
+
+def retrieveRiderDataWithNameAndPassword(name, password):
+    con = sql.connect("SQLiteDB\\riderData.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT * FROM rider WHERE name='{name} and password='{password}''")
+    riderDataWithNameAndPwd = cur.fetchall()
+    con.close()
+    return riderDataWithNameAndPwd
 
 
 def retrieveDriverRouteDataWithName(name):
     con = sql.connect("SQLiteDB\\driverRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}'")
-    recipe = cur.fetchall()
+    driverRouteDataWithName = cur.fetchall()
     con.close()
-    return recipe
+    return driverRouteDataWithName
 
 
 def retrieveRiderRouteDataWithName(name):
     con = sql.connect("SQLiteDB\\riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE name='{name}'")
-    recipe = cur.fetchall()
+    riderRouteDataWithName = cur.fetchall()
     con.close()
-    return recipe
+    return riderRouteDataWithName
 
 
-createRiderTableIfNotExist()
-createDriverTableIfNotExist()
-createRiderRouteTableIfNotExist()
-createDriverRouteTableIfNotExist()
+def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
+    con = sql.connect("SQLiteDB\\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' and destination='{destination}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    con.close()
+    return driverRouteDataWithSrcDes
+
+
+def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
+    con = sql.connect("SQLiteDB\\riderRouteData.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' and destination='{destination}'")
+    riderRouteDataWithSrcDes = cur.fetchall()
+    con.close()
+    return riderRouteDataWithSrcDes
+
+
+# createRiderTableIfNotExist()
+# createDriverTableIfNotExist()
+# createRiderRouteTableIfNotExist()
+# createDriverRouteTableIfNotExist()
 
 # insertRecipeData("python", pythonData)
 # print(retrieveCorpusData())

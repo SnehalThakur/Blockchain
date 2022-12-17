@@ -19,7 +19,7 @@
          <form action="riderLogin" method="post">
             <div class="right">
             <h1>Rider's Login</h1>
-            <p>Don't have an account? <a href="riderRegister.html">Register here</a> . It takes less than a minute.</p>
+            <p>Don't have an account? <a href="{{ url_for('riderRegister') }}">Register here</a> . It takes less than a minute.</p>
             <div class="inputs">
                <input type="text" placeholder="user name" name="username" id="username">
                <br>
