@@ -11,23 +11,15 @@ function driverLoginFunction(){
         'username':username,
         'password': password
     }
-    const userAction = async () => {
-        const response = await fetch('/driverLogin', {
-          method: 'POST',
-          body: payload
-          , // string or object
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const myJson = await response.json(); //extract JSON from the http response
-        // do something with myJson
-        if(myJson.status){
-          window.location.href = "./page1.html";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
         }
-        else{
-          alert("Your password or username is wrong");
-      }
-      }
+    };
+    xhttp.open("POST", "/riderLogin", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payload);
+    
     }
 }

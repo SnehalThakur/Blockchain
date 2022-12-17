@@ -9,34 +9,37 @@
    </head>
    <body>
       <!-- partial:index.partial.html -->
-      <div class="box-form">
-         <div class="left">
-            <div class="overlay">
-               <h1>Kaarpool</h1>
-               <p>Travel safely with us.</p>
+      <div>
+         <div class="box-form">
+            <div class="left">
+               <div class="overlay">
+                  <h1>Kaarpool</h1>
+                  <p>Travel safely with us.</p>
+               </div>
             </div>
-         </div>
-         <div class="right">
-            <h1>Driver's Login</h1>
-            <p>Don't have an account? <a href="{{ url_for('driverRegister') }}">Register here</a> . It takes less than a minute.</p>
-            <div class="inputs">
-               <input type="email" placeholder="user name" id="username" required>
+            <div class="right">
+               <h1>Driver's Login</h1>
+               <p>Don't have an account? <a href="{{ url_for('driverRegister') }}">Register here</a> . It takes less than a minute.</p>
+               <div class="inputs">
+                  <input type="email" placeholder="user name" id="username" required>
+                  <br>
+                  <input type="password" placeholder="password" id="password" required>
+               </div>
+               <br><br>
+               <div class="remember-me--forget-password">
+                  <!-- Angular -->
+                  <label>
+                  <input type="checkbox" name="item" checked/>
+                  <span class="text-checkbox">Remember me</span>
+                  </label>
+                  <p>forget password?</p>
+               </div>
                <br>
-               <input type="password" placeholder="password" id="password" required>
+               <button onclick="driverLoginFunction()">Login</button>
             </div>
-            <br><br>
-            <div class="remember-me--forget-password">
-               <!-- Angular -->
-               <label>
-               <input type="checkbox" name="item" checked/>
-               <span class="text-checkbox">Remember me</span>
-               </label>
-               <p>forget password?</p>
-            </div>
-            <br>
-            <button onclick="driverLoginFunction()">Login</button>
          </div>
       </div>
+      
       <!-- partial -->
    </body>
    <script src="./static/js/driverLogin.js"></script>
