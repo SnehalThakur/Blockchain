@@ -1,81 +1,97 @@
 <html>
-   <head>
-      <style>
-         body{
-         background-image:url('https://wallpapercave.com/wp/wp6561805.jpg');
-         background-repeat:no-repeat;
-         background-size:cover;
-         }
-         .container {
-         margin: 50px 50px 50px 5%;
+
+<head>
+   <style>
+      body {
+         background-image: url('https://wallpapercave.com/wp/wp6561805.jpg');
+         background-repeat: no-repeat;
+         background-size: cover;
+      }
+
+      .container {
+         /* margin: 50px 50px 50px 5%; */
          width: 90%;
          text-align: center;
-         }
-         .categories {
+      }
+
+      .categories {
          width: max-content;
          margin: 20px;
          border: 1px solid black;
          border-radius: 50px 50px 50px 50px;
          display: inline-block;
-         }
-         .categories:hover,
-         .items:hover {
+      }
+
+      .categories:hover,
+      .items:hover {
          box-shadow: 0 0 10px 3px #dfecea;
-         }
-         .image-title {
+      }
+
+      .image-title {
          text-align: center;
          padding: 10px;
          font-weight: bold;
-         }
-         .column {
+      }
+
+      .column {
          float: right;
          width: 30%;
-         padding-left:10px;
-         padding-right:180px;
-         }
-         /* Clear floats after image containers */
-         .row::after {
+         padding-left: 10px;
+         padding-right: 180px;
+      }
+
+      /* Clear floats after image containers */
+      .row::after {
          content: "";
          clear: both;
          display: table;
-         }
-         h1{
-         text-align:center;
-         color:white;
+      }
+
+      h1 {
+         text-align: center;
+         color: white;
          font-family: fantasy;
-         }
-         .logo1{
-         margin-top: 15px;
-         margin-left: 300px;
-         margin-left: 300px;
-         height:400px;
-         width:600px;
-         }
-      </style>
-   </head>
-   <body>
+      }
+
+      .logo1 {
+         margin-top: 20px;
+         /* height:400px; */
+         width: 35%;
+      }
+   </style>
+</head>
+
+<body>
+   <div style="text-align: center;">
       <img class="logo1" src="static/images/1stlogo.jpg">
-<!--      <a href="riderLogin.html">-->
+
+   </div>
+   <!--      <a href="riderLogin.html">-->
+   <div style="margin-top: 10px;">
       <a href="{{ url_for('riderLogin') }}">
          <div class="row">
             <div class="column">
                <div class="container">
                   <div class="categories">
-                     <img src="https://logos.textgiraffe.com/logos/logo-name/32121595-designstyle-panda-m.png" alt="item-image" height="135px" width="200px">
+                     <img src="/static/images/driver.png" alt="item-image" width="130px" style="padding: 5px;">
                   </div>
                </div>
             </div>
       </a>
-<!--      <a href="driverLogin.html">-->
+      <!--      <a href="driverLogin.html">-->
       <a href="{{ url_for('driverLogin') }}">
-      <div class="column">
-      <div class="container">
-      <div class="categories">
-      <img src="https://logos.textgiraffe.com/logos/logo-name/32121590-designstyle-panda-m.png" alt="item-image" height="135px" width="200px">
-      </div>
-      </div>
-      </div>
-      </div>
-      </div></a>
-   </body>
+         <div class="column">
+            <div class="container">
+               <div class="categories">
+                  <img src="/static/images/rider.png" alt="item-image" width="130px" style="padding: 5px;">
+               </div>
+            </div>
+         </div>
+   </div>
+   </div>
+   </a>
+   </div>
+
+</body>
+
 </html>
