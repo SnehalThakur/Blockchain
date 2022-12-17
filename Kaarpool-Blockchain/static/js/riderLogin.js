@@ -1,4 +1,4 @@
-function loginFunction(){
+function riderLoginFunction(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if(username =="" || password ==""){
@@ -11,7 +11,7 @@ function loginFunction(){
         'password': password
     }
     const userAction = async () => {
-        const response = await fetch('http://example.com/movies.json', {
+        const response = await fetch('/riderLogin', {
           method: 'POST',
           body: payload
           , // string or object

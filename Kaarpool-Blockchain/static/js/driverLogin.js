@@ -1,18 +1,18 @@
 
-function loginFunction(){
-    var uername = document.getElementById("username").value;
+function driverLoginFunction(){
+    var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if(username =="" || password ==""){
         alert("please enter username or password");
     }
     else{
-    console.log("username: - ",uername," password: - ",password);
+    console.log("username: - ",username," password: - ",password);
     let payload={
         'username':username,
         'password': password
     }
     const userAction = async () => {
-        const response = await fetch('http://example.com/movies.json', {
+        const response = await fetch('/driverLogin', {
           method: 'POST',
           body: payload
           , // string or object
