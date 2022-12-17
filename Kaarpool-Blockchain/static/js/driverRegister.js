@@ -1,4 +1,4 @@
-function signupFunction(){
+function driverSignupFunction(){
     var name = document.getElementById("name").value;
     var contactNo = document.getElementById("contactNo").value;
     var email = document.getElementById("email").value;
@@ -28,7 +28,7 @@ function signupFunction(){
         }
         console.log("payload: - ",payload);
         const userAction = async () => {
-            const response = await fetch('http://example.com/movies.json', {
+            const response = await fetch('/driverRegister', {
               method: 'POST',
               body: payload, // string or object
               headers: {
