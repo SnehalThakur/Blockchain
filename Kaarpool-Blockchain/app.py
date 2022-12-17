@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 import utils.SQLiteDB as dbloader
 
 # Configure application
+from utils.util import *
+
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -37,9 +39,11 @@ def riderLogin():
 @app.route('/riderRegister', methods=('GET', 'POST'))
 def riderRegister():
     if request.method == 'POST':
-        result = request.form
-        print(result)
-        return result
+        riderData = request.form
+        print("riderData=", riderData)
+        riderRegistrationResponse = riderRegistration(riderData)
+
+        return riderRegistrationResponse
     return render_template('riderRegister.html')
 
 
@@ -50,6 +54,12 @@ def driverLogin():
 
 @app.route('/driverRegister', methods=('GET', 'POST'))
 def driverRegister():
+    if request.method == 'POST':
+        driverData = request.form
+        print(driverData)
+        driverRegistrationResponse = driverRegistration(driverData)
+
+        return driverRegistrationResponse
     return render_template('driverRegister.html')
 
 
