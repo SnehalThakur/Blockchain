@@ -18,6 +18,7 @@
          }
          .box-form {
          margin: 0 auto;
+         margin-top: 2%;
          width: 80%;
          background: #FFFFFF;
          border-radius: 10px;
@@ -45,6 +46,7 @@
          background-repeat: no-repeat;
          background-image: url("https://cdn.siasat.com/wp-content/uploads/2019/06/Google-Maps.jpg");
          overflow: hidden;
+         width: 64%;
          }
          .box-form .left .overlay {
          padding: 30px;
@@ -53,9 +55,10 @@
          background: #2b2a2aad;
          overflow: hidden;
          box-sizing: border-box;
+         text-align: center;
          }
          .box-form .left .overlay h1 {
-         font-size: 10vmax;
+         font-size: 7vmax;
          line-height: 1;
          font-weight: 700;
          margin-top: 40px;
@@ -79,8 +82,10 @@
          margin-left: 30px;
          }
          .box-form .right {
-         padding: 40px;
+         padding: 9px;
          overflow: hidden;
+         text-align: center;
+         width: 35%;
          }
          @media (max-width: 980px) {
          .box-form .right {
@@ -101,7 +106,7 @@
          .box-form .right input {
          width: 60%;
          padding: 10px;
-         margin-top: 25px;
+         margin-top: 10px;
          font-size: 16px;
          border: none;
          outline: none;
@@ -118,7 +123,7 @@
          width: auto;
          }
          .box-form .right button {
-         float: right;
+         float: none; 
          color: #fff;
          font-size: 16px;
          padding: 12px 35px;
@@ -165,43 +170,72 @@
          label input[type="checkbox"] {
          display: none;
          }
+         .p-10{
+            padding: 10px !important;
+            margin-top: 10px;
+         }
       </style>
    </head>
    <body>
       <!-- partial:index.partial.html -->
       <div class="box-form">
          <div class="left">
-            <div class="overlay">
-               <h1>Register On Kaarpool</h1>
+            <div class="overlay" >
+               <h1>Driver Registration On <br> Kaarpool</h1>
             </div>
          </div>
-         <div class="right">
+         <div class="right" >
             <h1>Sign up</h1>
             <div class="inputs">
-               <input type="text" placeholder="Full Name" name="name" id="name">
-               <br>
-               <b>Gender:</b>
-               <select style="height: 25px;" name="gender" id="gender">
-                  <option value="0">---Select your gender---
-                  <option value=”1”>Female
-                  <option value=”2”>Male
-                  <option value=”3”>Other
-               </select>
-               <br><input type="text" placeholder="Contact no." name="contactNo" id="contactNo">
-               <br>
-               <input type="text" placeholder="Email" name="email" id="email"><br>
-               <b>Vehicle:</b>
-               <select style="height: 25px;" name="vehicle" id="vehicle">
-                  <option value="0">---Select your vehicle---
-                  <option value=”1”>2 wheeler
-                  <option value=”2”>4 wheeler
-                  <option value=”3”>Other
-               </select>
-               <br>
+               <div>
+                  <input type="text" placeholder="Full Name" name="name" id="name">
+               </div>   
+               <div class="p-10">
+                  <b>Gender:</b>
+                  <select style="height: 25px;" name="gender" id="gender">
+                     <option value="0">---Select your gender---
+                     <option value=”1”>Female
+                     <option value=”2”>Male
+                     <option value=”3”>Other
+                  </select>
+               </div>
+               <!-- <br> -->
+               
+               <!-- <br> -->
+               <div>
+                 <input type="text" placeholder="Contact no." name="contactNo" id="contactNo">
+
+               </div>
+               <!-- <br> -->
+               <div>
+                  <input type="text" placeholder="Email" name="email" id="email">
+               </div>
+               <!-- <br> -->
+               <div class="p-10">
+                  <b>Vehicle:</b>
+                  <select style="height: 25px;" name="vehicle" id="vehicle">
+                     <option value="0">---Select your vehicle---
+                     <option value=”1”>2 wheeler
+                     <option value=”2”>4 wheeler
+                     <option value=”3”>Other
+                  </select>
+               </div>
+               
+               <!-- <br> -->
+               <div >
                <input type="text" placeholder="License Number" name="licenseNumber" id="licenseNumber">
-               <br>
-               <input type="text" placeholder="License Validity (MM/YYYY)" name="licenseValidity" id="licenseValidity"><br>
-               <input type="password" placeholder="password" name="password" id="password">
+
+               </div>
+               <!-- <br> -->
+               <div >
+               <input type="text" placeholder="License Validity (MM/YYYY)" name="licenseValidity" id="licenseValidity">
+
+               </div>
+               <!-- <br> -->
+               <div >
+                <input type="password" placeholder="password" name="password" id="password">
+
+               </div>
             </div>
             <br>
             <button onclick="driverSignupFunction()">Sign up</button>
