@@ -25,9 +25,11 @@ def startPage():
 @app.route('/riderLogin', methods=['GET', 'POST'])
 def riderLogin():
     if request.method == 'POST':
-        result = request.form
-        print(result)
-        return result
+        riderLoginData = request.get_json()
+        print(riderLoginData)
+        riderLoginResponse = riderLoginToTable(riderLoginData)
+        print("riderLoginResponse =", riderLoginResponse)
+        return riderLoginResponse
     return render_template('riderLogin.html')
 
 
@@ -39,26 +41,32 @@ def riderLogin():
 @app.route('/riderRegister', methods=('GET', 'POST'))
 def riderRegister():
     if request.method == 'POST':
-        riderData = request.form
+        riderData = request.get_json()
         print("riderData=", riderData)
         riderRegistrationResponse = riderRegistration(riderData)
-
+        print("riderRegistrationResponse =", riderRegistrationResponse)
         return riderRegistrationResponse
     return render_template('riderRegister.html')
 
 
 @app.route('/driverLogin', methods=('GET', 'POST'))
 def driverLogin():
+    if request.method == 'POST':
+        driverLoginData = request.get_json()
+        print(driverLoginData)
+        driverLoginResponse = driverLoginToTable(driverLoginData)
+        print("driverLoginResponse =", driverLoginResponse)
+        return driverLoginResponse
     return render_template('driverLogin.html')
 
 
 @app.route('/driverRegister', methods=('GET', 'POST'))
 def driverRegister():
     if request.method == 'POST':
-        driverData = request.form
-        print(driverData)
+        driverData = request.get_json()
+        print("driverData= ", driverData)
         driverRegistrationResponse = driverRegistration(driverData)
-
+        print("driverRegistrationResponse =", driverRegistrationResponse)
         return driverRegistrationResponse
     return render_template('driverRegister.html')
 
@@ -66,18 +74,22 @@ def driverRegister():
 @app.route('/driverRoute', methods=('GET', 'POST'))
 def driverRoute():
     if request.method == 'POST':
-        result = request.form
-        print(result)
-        return result
+        driverRouteData = request.get_json()
+        print(driverRouteData)
+        driverRouteInfo = driverRouteSet(driverRouteData)
+        print("driverRouteInfoResponse =", driverRouteInfo)
+        return driverRouteInfo
     return render_template('riderRegister.html')
 
 
 @app.route('/riderRoute', methods=('GET', 'POST'))
 def riderRoute():
     if request.method == 'POST':
-        result = request.form
-        print(result)
-        return result
+        riderRouteData = request.get_json()
+        print("riderRouteData =", riderRouteData)
+        driversInfo = riderRouteSet(riderRouteData)
+        print("driversInfoResponse =", driversInfo)
+        return driversInfo
     return render_template('riderRegister.html')
 
 

@@ -10,16 +10,18 @@ function riderLoginFunction(){
         'username':username,
         'password': password
     }
-  
     console.log("payload: - ",payload);
+    console.log("JSON.stringify(payload): - ",JSON.stringify(payload));
+    var payloadString = JSON.stringify(payload);
     var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                alert(this.responseText);
-            }
-        };
-        xhttp.open("POST", "/riderLogin", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(payload);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("POST", "/riderLogin", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payloadString);
+    console.log("Rider Login Event fired");
     }
 }

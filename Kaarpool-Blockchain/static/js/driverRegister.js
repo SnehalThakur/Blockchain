@@ -35,9 +35,9 @@ function driverSignupFunction(){
                 alert(this.responseText);
             }
         };
-        xhttp.open("POST", "/driverRoute", true);
+        xhttp.open("POST", "/driverRegister", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(payloadString);
-        console.log("Event fire");
+        console.log("Driver Register Event fired");
     }
 }

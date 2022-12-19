@@ -19,23 +19,6 @@ function riderSignupFunction(){
            "email":email
         }
         console.log("payload: - ",payload);
-        // const userAction = async () => {
-        //     const response = await fetch('http://example.com/movies.json', {
-        //       method: 'POST',
-        //       body: payload, // string or object
-        //       headers: {
-        //         'Content-Type': 'application/json'
-        //       }
-        //     });
-        //     const myJson = await response.json(); //extract JSON from the http response
-        //     // do something with myJson
-        //     if(myJson.status){
-        //         window.location.href = "./page1.html";
-        //       }
-        //       else{
-        //           alert("Your password or username is wrong");
-        //       }
-        //   }
         console.log("JSON.stringify(payload): - ",JSON.stringify(payload));
         var payloadString = JSON.stringify(payload);
         var xhttp = new XMLHttpRequest();
@@ -47,6 +30,6 @@ function riderSignupFunction(){
         xhttp.open("POST", "/riderRegister", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(payloadString);
-        console.log("Event fire");
+        console.log("Rider Register Event fired");
     }
 }
