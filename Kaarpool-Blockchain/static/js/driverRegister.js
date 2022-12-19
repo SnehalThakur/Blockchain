@@ -38,7 +38,7 @@ function driverSignupFunction(){
                 console.log(typeof res);
                 if(res.status){
                   launch_toast("toast",res.message);
-                  window.location.href = ""
+                  window.location.href = "/driverHomePage";
                 }
                 else{
                   launch_toast("toast1",res.message);

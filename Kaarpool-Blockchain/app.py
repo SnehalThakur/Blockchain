@@ -16,6 +16,13 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def startPage():
     return render_template("1stpage.html")
 
+@app.route("/riderHomePage")
+def riderPage():
+    return render_template("riderPage.html")
+
+@app.route("/driverHomePage")
+def driverPage():
+    return render_template("driverPage.html")
 
 # @app.route('/riderLogin.html', methods=['GET', 'POST'])
 # def index():

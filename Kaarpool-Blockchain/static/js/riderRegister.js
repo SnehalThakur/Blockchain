@@ -25,8 +25,17 @@ function riderSignupFunction(){
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseText);
-                if(this.responseText.status){
-                  launch_toast();
+                console.log(this.responseText);
+                let res = JSON.parse(this.responseText)
+                console.log(typeof this.responseText);
+                console.log(typeof res);
+                if(res.status){
+                  launch_toast("toast",res.message);
+                  window.location.href = "/driverHomePage";
+                }
+                else{
+                  launch_toast("toast1",res.message);
+
                 }
             }
         };
@@ -36,8 +45,9 @@ function riderSignupFunction(){
         console.log("Rider Register Event fired");
     }
 }
-function launch_toast() {
-  var x = document.getElementById("toast")
+function launch_toast(tosterName,msg) {
+  var x = document.getElementById(tosterName);
   x.className = "show";
+  document.getElementById("desc").innerHTML = msg;
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
 }
