@@ -194,7 +194,7 @@ def retrieveRiderDataWithEmail(email):
 def retrieveDriverDataWithNameAndPassword(name, password):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM driver WHERE name='{name}' and password='{password}'")
+    cur.execute(f"SELECT * FROM driver WHERE name='{name}' AND password='{password}'")
     driverDataWithNameAndPwd = cur.fetchall()
     con.close()
     return driverDataWithNameAndPwd
@@ -203,7 +203,7 @@ def retrieveDriverDataWithNameAndPassword(name, password):
 def retrieveRiderDataWithNameAndPassword(name, password):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM rider WHERE name='{name} and password='{password}''")
+    cur.execute(f"SELECT * FROM rider WHERE name='{name}' AND password='{password}'")
     riderDataWithNameAndPwd = cur.fetchall()
     con.close()
     return riderDataWithNameAndPwd
@@ -212,7 +212,7 @@ def retrieveRiderDataWithNameAndPassword(name, password):
 def retrieveDriverDataWithEmailAndPassword(email, password):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM driver WHERE email='{email}' and password='{password}'")
+    cur.execute(f"SELECT * FROM driver WHERE email='{email}' AND password='{password}'")
     driverDataWithEmailAndPwd = cur.fetchall()
     con.close()
     return driverDataWithEmailAndPwd
@@ -221,7 +221,7 @@ def retrieveDriverDataWithEmailAndPassword(email, password):
 def retrieveRiderDataWithEmailAndPassword(email, password):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM rider WHERE email='{email} and password='{password}''")
+    cur.execute(f"SELECT * FROM rider WHERE email='{email}' AND password='{password}'")
     riderDataWithEmailAndPwd = cur.fetchall()
     con.close()
     return riderDataWithEmailAndPwd
@@ -248,7 +248,7 @@ def retrieveRiderRouteDataWithName(name):
 def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' and destination='{destination}'")
+    cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}'")
     driverRouteDataWithSrcDes = cur.fetchall()
     con.close()
     return driverRouteDataWithSrcDes
@@ -257,7 +257,7 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
 def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' and destination='{destination}'")
+    cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
     riderRouteDataWithSrcDes = cur.fetchall()
     con.close()
     return riderRouteDataWithSrcDes
