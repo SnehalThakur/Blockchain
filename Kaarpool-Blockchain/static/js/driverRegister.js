@@ -32,7 +32,18 @@ function driverSignupFunction(){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                alert(this.responseText);
+                console.log(this.responseText);
+                let res = JSON.parse(this.responseText)
+                console.log(typeof this.responseText);
+                console.log(typeof res);
+                if(res.status){
+                  launch_toast("toast",res.message);
+                  window.location.href = ""
+                }
+                else{
+                  launch_toast("toast1",res.message);
+
+                }
             }
         };
         xhttp.open("POST", "/driverRegister", true);
@@ -40,4 +51,10 @@ function driverSignupFunction(){
         xhttp.send(payloadString);
         console.log("Driver Register Event fired");
     }
+}
+function launch_toast(tosterName,msg) {
+  var x = document.getElementById(tosterName);
+  x.className = "show";
+  document.getElementById("desc").innerHTML = msg;
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
 }

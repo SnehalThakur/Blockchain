@@ -7,6 +7,7 @@
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <link rel="stylesheet" href="./static/css/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <style>
          body {
          background-image: linear-gradient(135deg, #27262b 10%, #3e396d 100%);
@@ -175,6 +176,102 @@
             padding-bottom: 0px !important;
             margin-top: 10px;
          }
+         #toast,#toast1 {
+    visibility: hidden;
+    max-width: 50px;
+    height: 50px;
+    /*margin-left: -125px;*/
+    margin: auto;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+
+    position: fixed;
+    z-index: 1;
+    left: 0;right:0;
+    bottom: 30px;
+    font-size: 17px;
+    white-space: nowrap;
+}
+#toast #img,#toast1 #img{
+	width: 50px;
+	height: 50px;
+    
+    float: left;
+    
+    padding-top: 16px;
+    padding-bottom: 16px;
+    
+    box-sizing: border-box;
+
+    
+    background-color: #111;
+    color: #fff;
+}
+#toast #desc,#toast1 #desc{
+
+    color: #fff;
+   
+    padding: 16px;
+    
+    overflow: hidden;
+	white-space: nowrap;
+}
+
+#toast.show ,#toast1.show{
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes expand {
+    from {min-width: 50px} 
+    to {min-width: 350px}
+}
+
+@keyframes expand {
+    from {min-width: 50px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes stay {
+    from {min-width: 350px} 
+    to {min-width: 350px}
+}
+
+@keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 50px;}
+}
+
+@keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 50px;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 60px; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 60px; opacity: 0;}
+}
       </style>
    </head>
    <body>
@@ -242,6 +339,12 @@
             <button onclick="driverSignupFunction()">Sign up</button>
          </div>
       </div>
+      <div id="toast"><div id="img" style="color: green;">
+         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+      </div><div id="desc">Driver Registration Successful.</div></div>
+      <div id="toast1"><div id="img" style="color: red;">
+         <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+      </div><div id="desc"></div></div>
       <!-- partial -->
       <script src="./static/js/driverRegister.js"></script>
    </body>
