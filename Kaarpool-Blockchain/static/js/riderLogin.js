@@ -22,7 +22,8 @@ function riderLoginFunction(){
                 console.log(typeof res);
                 if(res.status){
                   launch_toast("toast",res.message);
-                  window.location.href = "/driverHomePage";
+                  sessionStorage.setItem("userData", this.responseText);
+                  window.location.href = "/riderHomePage";
                 }
                 else{
                   launch_toast("toast1",res.message);
@@ -36,6 +37,7 @@ function riderLoginFunction(){
     console.log("Rider Login Event fired");
     }
 }
+
 function launch_toast(tosterName,msg) {
     var x = document.getElementById(tosterName);
     x.className = "show";

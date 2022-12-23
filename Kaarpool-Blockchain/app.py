@@ -28,7 +28,6 @@ def driverPage():
 # def index():
 #     return render_template('riderLogin.html')
 
-
 @app.route('/riderLogin', methods=['GET', 'POST'])
 def riderLogin():
     if request.method == 'POST':

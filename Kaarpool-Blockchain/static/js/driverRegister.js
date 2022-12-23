@@ -38,6 +38,7 @@ function driverSignupFunction(){
                 console.log(typeof res);
                 if(res.status){
                   launch_toast("toast",res.message);
+                  sessionStorage.setItem("userData", this.responseText);
                   window.location.href = "/driverHomePage";
                 }
                 else{

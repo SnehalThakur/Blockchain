@@ -2,29 +2,118 @@
 <html lang="en" >
    <head>
       <meta charset="UTF-8">
-      <title>Login Page</title>
+      <title>Driver Page</title>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <link rel="stylesheet" href="./static/css/style.css">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
       <style>
           header {
                 text-align: right;
                 background: transparent;
                 padding: 13px 10%;
             }
+            .p-10{
+               padding: 10px;
+            }
+            .input-field{
+               padding: 6px !important;
+               border: 1px solid gray !important;
+               border-radius: 20px !important;
+               width: 200px !important;
+               margin-top: 5px !important;
+            }
+            .title-text{
+               text-align: center ;
+               font-size: 25px;
+               font-weight: 600;
+               margin-bottom: 20px;
+            }
+            .btn {
+  border: 2px solid black !important;
+  background-color: white !important;
+  color: black !important;
+  padding: 8px 20px !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  float: none !important;
+  background-image: none !important;
+}
+
+/* Green */
+.success {
+  border-color: #04AA6D !important;
+  color: green !important;
+}
+
+.success:hover {
+  background-color: #04AA6D !important;
+  color: white !important;
+}
+.lable-div{
+   margin-left: -20px;
+   margin-top: 9px;
+   width: 150px;
+    font-size: 15px;
+}
+.flex{
+   display: flex;
+}
       </style>
    </head>
    <body>
       <!-- partial:index.partial.html -->
       <header>
-        <b>Hi, Nikhil</b>
+        <b id="userNameDiv" style="color: white;">Hi</b>
       </header> 
-      <div class="box-form" style="margin-top: 5% !important;">
+
+      <div class="box-form col-12">
+         <div class="left">
+            <div class="overlay">
+               <h1>Kaarpool</h1>
+               <p>Travel safely with us.</p>
+            </div>
+         </div>
+         
+         <div class="right" style="padding: 25px; text-align: left;" >
+            <div class="title-text">
+               Schedule Ride
+            </div>
+            <div class="p-10 flex">
+               <div class="lable-div">Avalaible seats</div>
+               <select  name="vehicle" id="vehicle" class="input-field">
+                  <option value="0">---Select your vehicle---
+                  <option value=”1”>1
+                  <option value=”2”>2
+                  <option value=”3”>3
+               </select>
+            </div>
+            <div class="p-10 flex">
+               <div class="lable-div" for="appt">Select a time</div>
+               <input class="input-field" type="time" id="appt" name="appt" style="width: 250px;">
+            </div>
+            <div class="p-10 flex">
+                  <div class="lable-div">Source Location</div>
+                  <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;">
+               
+            </div>
+            <div class="p-10 flex">
+                  <div class="lable-div"> Destination Location</div>
+                  <input id="tags1" name="destination_name" class="input-field" placeholder="Enter destination location" style="width: 250px;">
+            </div>
+            <div class="p-10" style="text-align: center;">
+               <button class="btn success">Confirm</button>
+            </div>
+         </div>
          
       </div>
       <!-- partial -->
    </body>
+
    <script type = "text/javascript"
-         src = "{{ url_for('static', filename = 'js/riderLogin.js') }}" ></script>
+         src = "{{ url_for('static', filename = 'js/driverHomePage.js') }}" ></script>
 <!--   <script src="./static/js/riderLogin.js"></script>-->
 </html>
