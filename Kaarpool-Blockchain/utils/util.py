@@ -11,10 +11,11 @@ def driverRegistration(driverData):
     vehicle = driverData['vehicle']
     licenseNumber = driverData['licenseNumber']
     licenseValidity = driverData['licenseValidity']
+    insuranceNumber = driverData['insuranceNumber']
     existingDriverData = dbloader.retrieveDriverDataWithLicenseNumber(licenseNumber)
     print("existingDriverData =",existingDriverData)
     if len(existingDriverData) < 1:
-        dbloader.insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity)
+        dbloader.insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber)
         print("Driver Registration Successful with name is", name)
         return {"name": name, "email": email, "message": "Driver Registration Successful", "status": True}
     else:

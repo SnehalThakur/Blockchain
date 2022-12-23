@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 
 def createRiderTableIfNotExist():
-    sqlConnection = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    sqlConnection = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -18,7 +18,7 @@ def createRiderTableIfNotExist():
 
 
 def createDriverTableIfNotExist():
-    sqlConnection = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    sqlConnection = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -31,13 +31,14 @@ def createDriverTableIfNotExist():
                             email text not null,
                             vehicle text not null,
                             licenseNumber text not null,
-                            licenseValidity integer not null
+                            licenseValidity integer not null,
+                            insuranceNumber integer not null
                         );
                     """)
 
 
 def createRiderRouteTableIfNotExist():
-    sqlConnection = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    sqlConnection = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -52,7 +53,7 @@ def createRiderRouteTableIfNotExist():
 
 
 def createDriverRouteTableIfNotExist():
-    sqlConnection = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    sqlConnection = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -71,19 +72,19 @@ def createDriverRouteTableIfNotExist():
 # cursor = sqlConnection.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
 # print(cursor.fetchall())
 
-def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber):
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
 
     cur.execute(
-        "INSERT INTO driver (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity) VALUES (?,?,?,?,?,?,?,?)",
-        (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity))
+        "INSERT INTO driver (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber) VALUES (?,?,?,?,?,?,?,?,?)",
+        (name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber))
     con.commit()
     con.close()
 
 
 def insertRiderData(name, contactNo, password, gender, email):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute("INSERT INTO rider (name, contactNo, password, gender, email) VALUES (?,?,?,?,?)",
                 (name, contactNo, password, gender, email))
@@ -92,7 +93,7 @@ def insertRiderData(name, contactNo, password, gender, email):
 
 
 def insertDriverRouteData(name, source, destination, availableSeats, starttime, endtime):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         "INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime) VALUES (?,?,?,?,?,?)",
@@ -102,7 +103,7 @@ def insertDriverRouteData(name, source, destination, availableSeats, starttime, 
 
 
 def insertRiderRouteData(name, source, destination, time):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
     cur.execute("INSERT INTO riderRoute (name, source, destination, time) VALUES (?,?,?,?)",
                 (name, source, destination, time))
@@ -111,7 +112,7 @@ def insertRiderRouteData(name, source, destination, time):
 
 
 def retrieveDriverData():
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driver")
     driverData = cur.fetchall()
@@ -120,7 +121,7 @@ def retrieveDriverData():
 
 
 def retrieveRiderData():
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM rider")
     riderData = cur.fetchall()
@@ -129,7 +130,7 @@ def retrieveRiderData():
 
 
 def retrieveDriverRouteData():
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driverRoute")
     driverRouteData = cur.fetchall()
@@ -138,7 +139,7 @@ def retrieveDriverRouteData():
 
 
 def retrieveRiderRouteData():
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM riderRoute")
     riderRouteData = cur.fetchall()
@@ -147,7 +148,7 @@ def retrieveRiderRouteData():
 
 
 def retrieveDriverDataWithName(name):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE name='{name}'")
     driverDataWithName = cur.fetchall()
@@ -156,7 +157,7 @@ def retrieveDriverDataWithName(name):
 
 
 def retrieveRiderDataWithName(name):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE name='{name}'")
     riderDataWithName = cur.fetchall()
@@ -165,7 +166,7 @@ def retrieveRiderDataWithName(name):
 
 
 def retrieveDriverDataWithEmail(email):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE email='{email}'")
     driverDataWithEmail = cur.fetchall()
@@ -174,7 +175,7 @@ def retrieveDriverDataWithEmail(email):
 
 
 def retrieveDriverDataWithLicenseNumber(licenseNumber):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE licenseNumber='{licenseNumber}'")
     driverDataWithLicenseNumber = cur.fetchall()
@@ -183,7 +184,7 @@ def retrieveDriverDataWithLicenseNumber(licenseNumber):
 
 
 def retrieveRiderDataWithEmail(email):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE email='{email}'")
     riderDataWithEmail = cur.fetchall()
@@ -192,7 +193,7 @@ def retrieveRiderDataWithEmail(email):
 
 
 def retrieveDriverDataWithNameAndPassword(name, password):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE name='{name}' AND password='{password}'")
     driverDataWithNameAndPwd = cur.fetchall()
@@ -201,7 +202,7 @@ def retrieveDriverDataWithNameAndPassword(name, password):
 
 
 def retrieveRiderDataWithNameAndPassword(name, password):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE name='{name}' AND password='{password}'")
     riderDataWithNameAndPwd = cur.fetchall()
@@ -210,7 +211,7 @@ def retrieveRiderDataWithNameAndPassword(name, password):
 
 
 def retrieveDriverDataWithEmailAndPassword(email, password):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE email='{email}' AND password='{password}'")
     driverDataWithEmailAndPwd = cur.fetchall()
@@ -219,7 +220,7 @@ def retrieveDriverDataWithEmailAndPassword(email, password):
 
 
 def retrieveRiderDataWithEmailAndPassword(email, password):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE email='{email}' AND password='{password}'")
     riderDataWithEmailAndPwd = cur.fetchall()
@@ -228,7 +229,7 @@ def retrieveRiderDataWithEmailAndPassword(email, password):
 
 
 def retrieveDriverRouteDataWithName(name):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}'")
     driverRouteDataWithName = cur.fetchall()
@@ -237,7 +238,7 @@ def retrieveDriverRouteDataWithName(name):
 
 
 def retrieveRiderRouteDataWithName(name):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE name='{name}'")
     riderRouteDataWithName = cur.fetchall()
@@ -246,7 +247,7 @@ def retrieveRiderRouteDataWithName(name):
 
 
 def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}'")
     driverRouteDataWithSrcDes = cur.fetchall()
@@ -255,7 +256,7 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
 
 
 def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
-    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"C:\Users\Snehal Thakur\PycharmProjects\KaarPoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
     riderRouteDataWithSrcDes = cur.fetchall()
