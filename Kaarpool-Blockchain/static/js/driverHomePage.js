@@ -52,3 +52,29 @@ $( function() {
         }
     });
   } );
+  function confirmFunction(){
+    var time = document.getElementById("appt").value;
+    var sourceLoacation = document.getElementById("selUserSource").value;
+    var destinationLoacation = document.getElementById("selUser").value;
+    var value = document.getElementById("vehicle").value;
+    
+    console.log("value: -",value);
+    console.log("time: -",time);
+    console.log("sourceLoacation: -",sourceLoacation);
+    console.log("destinationLoacation: -",destinationLoacation);
+  }
+  $(document).ready(function(){
+ 
+    // Initialize select2
+    $("#selUser").select2();
+    $("#selUserSource").select2();
+
+    // Read selected option
+    $('#but_read').click(function(){
+        var username = $('#selUser option:selected').text();
+        var userid = $('#selUser').val();
+
+        $('#result').html("id : " + userid + ", name : " + username);
+
+    });
+});

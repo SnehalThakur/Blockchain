@@ -8,8 +8,15 @@
       <link rel="stylesheet" href="./static/css/style.css">
       <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
       <link rel="stylesheet" href="/resources/demos/style.css">
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> 
+
+      <!-- jQuery --> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+      <!-- Select2 JS --> 
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
       <style>
           header {
                 text-align: right;
@@ -97,15 +104,51 @@
             </div>
             <div class="p-10 flex">
                   <div class="lable-div">Source Location</div>
-                  <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;">
-               
+                  <!-- <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;"> -->
+                  <select id='selUserSource' style='width: 213px;border-radius: 20px;height: 31px;'>
+                     <option value='0'>Select Source</option> 
+                     <option value='001'>Bajrang nagar, Manewada road, Nagpur</option> 
+                     <option value='002'>Omkar nagar, Manewada road, Nagpur</option> 
+                     <option value='003'>Rameshwari, Nagpur</option> 
+                     <option value='004'>Chhatrapati Sqr, Nagpur</option> 
+                     <option value='005'>Jaitala, Nagapur</option> 
+                     <option value='006'>Trimurti nagar, Nagapur</option> 
+                     <option value='007'>T-point, Nagpur</option> 
+                     <option value='008'>Hingna road, Nagpur</option> 
+                     <option value='009'>Mahindra sqr, Nagpur</option> 
+                     <option value='010'>IC sqr, Nagpur</option> 
+                     <option value='011'>YCC colleage, Hingna, Nagpur</option> 
+                     <option value='012'>Bajaj nagar, Nagpur</option> 
+                </select>
             </div>
-            <div class="p-10 flex">
+            <!-- <div class="p-10 flex">
                   <div class="lable-div"> Destination Location</div>
                   <input id="tags1" name="destination_name" class="input-field" placeholder="Enter destination location" style="width: 250px;">
+            </div> -->
+            <div class="p-10 flex">
+                  <div class="lable-div"> Destination Location</div>
+                  <select id='selUser' style='width: 213px;border-radius: 20px;height: 31px;'>
+                     <option value='0'>Select Destination</option> 
+                     <option value='001'>Bajrang nagar, Manewada road, Nagpur</option> 
+                     <option value='002'>Omkar nagar, Manewada road, Nagpur</option> 
+                     <option value='003'>Rameshwari, Nagpur</option> 
+                     <option value='004'>Chhatrapati Sqr, Nagpur</option> 
+                     <option value='005'>Jaitala, Nagapur</option> 
+                     <option value='006'>Trimurti nagar, Nagapur</option> 
+                     <option value='007'>T-point, Nagpur</option> 
+                     <option value='008'>Hingna road, Nagpur</option> 
+                     <option value='009'>Mahindra sqr, Nagpur</option> 
+                     <option value='010'>IC sqr, Nagpur</option> 
+                     <option value='011'>YCC colleage, Hingna, Nagpur</option> 
+                     <option value='012'>Bajaj nagar, Nagpur</option> 
+                </select>
+                <!-- <input type='button' value='Seleted option' id='but_read'>
+                
+                <br/>
+                <div id='result'></div> -->
             </div>
             <div class="p-10" style="text-align: center;">
-               <button class="btn success">Confirm</button>
+               <button class="btn success" onclick="confirmFunction()">Confirm</button>
             </div>
          </div>
          
