@@ -67,7 +67,7 @@ def createDriverRouteTableIfNotExist():
                             endtime text,
                             rider1 text,
                             rider2 text,
-                            rider3 text,
+                            rider3 text
                         );
                     """)
 
@@ -317,7 +317,7 @@ def updateDriverRouteData(driveName, source, destination, riderName, time):
     con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     # Updating
-    cur.execute(f"UPDATE driverRoute SET rider1 = '{riderName}' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND time='{time}';")
+    cur.execute(f"UPDATE driverRoute SET rider1 = '{riderName}' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
     con.commit()
     con.close()
 
