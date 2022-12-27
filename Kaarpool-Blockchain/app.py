@@ -126,7 +126,17 @@ def riderRouteData():
         print("riderRouteDataRequest =", riderRouteDataRequest)
         riderRouteDataResponse = riderRouteGet(riderRouteDataRequest)
         print("riderRouteDataResponse =", riderRouteDataResponse)
-        return {"status": True, "data": riderRouteDataResponse}
+        return {"status": True, "data": riderRouteDataResponse}\
+
+
+@app.route('/updateDriveRouteDataWithRiderName', methods=('GET','POST'))
+def driveRouteDataWithRiderName():
+    if request.method == 'POST':
+        driveRouteDataRequestWithRiderName = request.get_json()
+        print("driveRouteDataRequest for driveRouteDataRequestWithRiderName=", driveRouteDataRequestWithRiderName)
+        driverRouteDataWithRiderNameResponse = updateDriveRouteWithRiderName(driveRouteDataRequestWithRiderName)
+        print("driverRouteDataWithRiderNameResponse =", driverRouteDataWithRiderNameResponse)
+        return {"status": True, "data": driverRouteDataWithRiderNameResponse}
     # return render_template('riderRegister.html')
 
 
