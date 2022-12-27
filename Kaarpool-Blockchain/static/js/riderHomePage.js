@@ -56,3 +56,9 @@ function searchFunction(){
   // let 
   console.log("search");
 }
+function launch_toast(tosterName, msg) {
+  var x = document.getElementById(tosterName);
+  x.className = "show";
+  document.getElementById("desc").innerHTML = msg;
+  setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+}
