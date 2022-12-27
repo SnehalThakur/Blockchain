@@ -99,7 +99,7 @@ def riderRoute():
     return render_template('riderRegister.html')
 
 
-@app.route('/getDriverRouteData', methods=('POST'))
+@app.route('/getDriverRouteData', methods=('GET','POST'))
 def driverRouteData():
     if request.method == 'POST':
         driverRouteDataRequest = request.get_json()
@@ -110,7 +110,7 @@ def driverRouteData():
     # return render_template('riderRegister.html')
 
 
-@app.route('/getRiderRouteData', methods=('POST'))
+@app.route('/getRiderRouteData', methods=('GET','POST'))
 def riderRouteData():
     if request.method == 'POST':
         riderRouteDataRequest = request.get_json()

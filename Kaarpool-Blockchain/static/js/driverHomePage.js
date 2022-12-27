@@ -17,9 +17,14 @@ function init() {
       let res = JSON.parse(this.responseText)
       console.log(typeof this.responseText);
       console.log(typeof res);
+      let tdData =''
+      res.forEach(element => {
+        td +=  '<tr><td>'+res.source+'</td><td>'+res.destination+'</td><td>'+res.date+'</td><td>'+res.time+'</td></tr>';
+      });
+      document.getElementById('td1').innerHTML = tdData
     }
   };
-  xhttp.open("POST", "/driverRouteData", true);
+  xhttp.open("POST", "/getDriverRouteData", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(payloadString);
   
