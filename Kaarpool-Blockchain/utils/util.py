@@ -122,3 +122,20 @@ def riderRouteSet(riderRouteData):
     # return {"name": name, "source": source, "destination": destination, "message": "Rider Route Successfully Saved", "status": True}
     print("driversInfo =", driversInfo)
     return driversInfo
+
+
+def driverRouteGet(driverRouteData):
+    name = driverRouteData['name']
+    driverRouteDataWithName = dbloader.retrieveDriverRouteDataWithName(name)
+    print("Driver Route Successfully Retrieve with name is", name)
+    print("driverRouteDataWithName =", driverRouteDataWithName)
+    return driverRouteDataWithName
+
+
+def riderRouteGet(riderRouteData):
+    source = riderRouteData['source']
+    destination = riderRouteData['destination']
+    riderRouteDataWithSourceAndDestination = dbloader.retrieveRiderRouteDataWithSourceAndDestination(source, destination)
+    print("Rider Route Successfully Retrieve with Source {0} and Destination {1}".format(source, destination))
+    print("riderRouteDataWithSourceAndDestination =", riderRouteDataWithSourceAndDestination)
+    return riderRouteDataWithSourceAndDestination
