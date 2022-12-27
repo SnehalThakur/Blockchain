@@ -62,6 +62,12 @@
 .flex{
    display: flex;
 }
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid gray !important;
+    border-radius: 20px !important;
+    height: 32px !important;
+}
       </style>
    </head>
    <body>
@@ -89,12 +95,41 @@
             </div>
             <div class="p-10 flex">
                   <div class="lable-div">Source Location</div>
-                  <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;">
-               
+                  <!-- <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;"> -->
+                  <select id='selUserSource' style='width: 213px;border-radius: 20px;height: 31px;'>
+                     <option value='0'>Select Source</option> 
+                     <option value='Bajrang nagar, Manewada road, Nagpur(001)'>Bajrang nagar, Manewada road, Nagpur</option> 
+                     <option value='Omkar nagar, Manewada road, Nagpur(002)'>Omkar nagar, Manewada road, Nagpur</option> 
+                     <option value='Rameshwari, Nagpur(003)'>Rameshwari, Nagpur</option> 
+                     <option value='Chhatrapati Sqr, Nagpur(004)'>Chhatrapati Sqr, Nagpur</option> 
+                     <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option> 
+                     <option value='Trimurti nagar, Nagapur(006)'>Trimurti nagar, Nagapur</option> 
+                     <option value='T-point, Nagpur(007)'>T-point, Nagpur</option> 
+                     <option value='Hingna road, Nagpur(008)'>Hingna road, Nagpur</option> 
+                     <option value='Mahindra sqr, Nagpur(009)'>Mahindra sqr, Nagpur</option> 
+                     <option value='IC sqr, Nagpur(010)'>IC sqr, Nagpur</option> 
+                     <option value='YCC colleage, Hingna, Nagpur(011)'>YCC colleage, Hingna, Nagpur</option> 
+                     <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option> 
+                </select>
             </div>
             <div class="p-10 flex">
                   <div class="lable-div"> Destination Location</div>
-                  <input id="tags1" name="destination_name" class="input-field" placeholder="Enter destination location" style="width: 250px;">
+                  <!-- <input id="tags1" name="destination_name" class="input-field" placeholder="Enter destination location" style="width: 250px;"> -->
+                  <select id='selUser' style='width: 213px;border-radius: 20px;height: 31px;'>
+                     <option value='0'>Select Destination</option> 
+                     <option value='Bajrang nagar, Manewada road, Nagpur(001)'>Bajrang nagar, Manewada road, Nagpur</option> 
+                     <option value='Omkar nagar, Manewada road, Nagpur(002)'>Omkar nagar, Manewada road, Nagpur</option> 
+                     <option value='Rameshwari, Nagpur(003)'>Rameshwari, Nagpur</option> 
+                     <option value='Chhatrapati Sqr, Nagpur(004)'>Chhatrapati Sqr, Nagpur</option> 
+                     <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option> 
+                     <option value='Trimurti nagar, Nagapur(006)'>Trimurti nagar, Nagapur</option> 
+                     <option value='T-point, Nagpur(007)'>T-point, Nagpur</option> 
+                     <option value='Hingna road, Nagpur(008)'>Hingna road, Nagpur</option> 
+                     <option value='Mahindra sqr, Nagpur(009)'>Mahindra sqr, Nagpur</option> 
+                     <option value='IC sqr, Nagpur(010)'>IC sqr, Nagpur</option> 
+                     <option value='YCC colleage, Hingna, Nagpur(011)'>YCC colleage, Hingna, Nagpur</option> 
+                     <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option> 
+                </select>
             </div>
             <div class="p-10" style="text-align: center;">
                <button class="btn success" onclick="searchFunction()">Search</button>
