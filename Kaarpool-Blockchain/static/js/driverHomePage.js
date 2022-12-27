@@ -16,12 +16,23 @@ function init() {
       console.log(this.responseText);
       let res = JSON.parse(this.responseText)
       console.log(typeof this.responseText);
-      console.log(typeof res);
+      console.log(res.data);
       let tdData =''
-      res.forEach(element => {
-        td +=  '<tr><td>'+res.source+'</td><td>'+res.destination+'</td><td>'+res.date+'</td><td>'+res.time+'</td></tr>';
-      });
-      document.getElementById('td1').innerHTML = tdData
+      if(res.data?.length == 0){
+        document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+      }
+      else{
+        res.data.forEach(element => {
+          let timeData = element.starttime.split("_");
+          tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]+'</td></tr>';
+        });
+        document.getElementById('td1').innerHTML = tdData
+      }
+     
+    }
+    else{
+      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+
     }
   };
   xhttp.open("POST", "/getDriverRouteData", true);

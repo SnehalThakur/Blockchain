@@ -245,7 +245,7 @@ def retrieveRiderDataWithEmailAndPassword(email, password):
 def retrieveDriverRouteDataWithName(name):
     con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
-    cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}'")
+    cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}' ORDER BY id DESC LIMIT 1")
     driverRouteDataWithName = cur.fetchall()
     driverRouteData_accumulator = []
     for item in driverRouteDataWithName:
