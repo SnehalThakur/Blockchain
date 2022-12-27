@@ -233,8 +233,11 @@ def retrieveDriverRouteDataWithName(name):
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}'")
     driverRouteDataWithName = cur.fetchall()
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithName:
+        driverRouteData_accumulator.append({k: item[k] for k in item.keys()})
     con.close()
-    return driverRouteDataWithName
+    return driverRouteData_accumulator
 
 
 def retrieveRiderRouteDataWithName(name):
@@ -260,8 +263,11 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
     riderRouteDataWithSrcDes = cur.fetchall()
+    riderRouteData_accumulator = []
+    for item in riderRouteDataWithSrcDes:
+        riderRouteData_accumulator.append({k: item[k] for k in item.keys()})
     con.close()
-    return riderRouteDataWithSrcDes
+    return riderRouteData_accumulator
 
 
 # createRiderTableIfNotExist()
