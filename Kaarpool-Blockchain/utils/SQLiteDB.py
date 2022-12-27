@@ -64,7 +64,10 @@ def createDriverRouteTableIfNotExist():
                             destination text not null,
                             availableSeats integer not null,
                             starttime text not null,
-                            endtime text
+                            endtime text,
+                            rider1 text,
+                            rider2 text,
+                            rider3 text,
                         );
                     """)
 
@@ -96,8 +99,8 @@ def insertDriverRouteData(name, source, destination, availableSeats, starttime, 
     con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     cur.execute(
-        "INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime) VALUES (?,?,?,?,?,?)",
-        (name, source, destination, availableSeats, starttime, endtime))
+        "INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime, rider1, rider2, rider3) VALUES (?,?,?,?,?,?,?,?,?)",
+        (name, source, destination, availableSeats, starttime, endtime, "","",""))
     con.commit()
     con.close()
 
@@ -251,7 +254,7 @@ def retrieveDriverRouteDataWithName(name):
     driverRouteData_accumulator = []
     for item in driverRouteDataWithName:
         driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6]}
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1":item[7], "rider2":item[8], "rider3":item[9]}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
@@ -275,7 +278,7 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
     driverRouteData_accumulator = []
     for item in driverRouteDataWithSrcDes:
         driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6]}
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1":item[7], "rider2":item[8], "rider3":item[9]}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
@@ -296,6 +299,28 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     return riderRouteData_accumulator
 
 
+def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
+    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\riderRouteData.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
+    riderRouteDataWithSrcDes = cur.fetchall()
+    riderRouteData_accumulator = []
+    for item in riderRouteDataWithSrcDes:
+        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4]}
+        riderRouteData_accumulator.append(riderDataDict)
+    print("riderRouteData_accumulator =",riderRouteData_accumulator)
+    con.close()
+    return riderRouteData_accumulator
+
+
+def updateDriverRouteData(driveName, source, destination, riderName, time):
+    con = sql.connect(r"E:\blockchain\Kaarpool-Blockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    # Updating
+    cur.execute(f"UPDATE driverRoute SET rider1 = '{riderName}' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND time='{time}';")
+    con.commit()
+    con.close()
+
 # createRiderTableIfNotExist()
 # createDriverTableIfNotExist()
 # createRiderRouteTableIfNotExist()
@@ -308,4 +333,4 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
 # retrieveDriverRouteDataWithName("raj")
 # retrieveDriverData()
 # retrieveRiderData()
-retrieveRiderRouteData()
+# retrieveRiderRouteData()

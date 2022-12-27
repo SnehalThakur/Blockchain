@@ -142,6 +142,7 @@ def riderRouteGet(riderRouteData):
     print("riderRouteDataWithSourceAndDestination =", riderRouteDataWithSourceAndDestination)
     return riderRouteDataWithSourceAndDestination
 
+
 def driverRouteGetWithSrcDes(riderRouteData):
     source = riderRouteData['source']
     destination = riderRouteData['destination']
@@ -149,5 +150,15 @@ def driverRouteGetWithSrcDes(riderRouteData):
     print("Rider Route Successfully Retrieve with Source {0} and Destination {1}".format(source, destination))
     print("driverRouteDataWithSourceAndDestination =", driverRouteDataWithSourceAndDestination)
     return driverRouteDataWithSourceAndDestination
+
+
+def updateDriveRouteWithRiderName(driverRouteData):
+    driveName = driverRouteData['driveName']
+    riderName = driverRouteData['riderName']
+    source = driverRouteData['source']
+    destination = driverRouteData['destination']
+    time = driverRouteData['time']
+    dbloader.updateDriverRouteData(driveName, source, destination, riderName, time)
+    print("Driver Route Successfully Updated with Rider Name {0}".format(riderName))
 
 
