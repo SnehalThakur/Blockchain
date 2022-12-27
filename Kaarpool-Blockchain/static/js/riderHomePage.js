@@ -55,6 +55,7 @@ $( function() {
   $("#selUserSource").select2();
 
 } );
+var responseSearchData ;
 function searchFunction(){
   // let 
   console.log("search");
@@ -86,14 +87,15 @@ function searchFunction(){
           // sessionStorage.setItem("userData", this.responseText);
           // window.location.href = "/driverHomePage";
           document.getElementById("tableDiv").style.display = "block";
-          let tdData =''
+          let tdData ='';
+          responseSearchData = res.data;
       if(res.data?.length == 0){
         document.getElementById('td1').innerHTML = '<tr style="text-align:center">No Data avaliable</tr>';
       }
       else{
-        res.data.forEach(element => {
+        res.data.forEach((element,inx) => {
           // let timeData = element.starttime.split("_");
-          tdData +=  '<tr><td>'+element.name+'</td><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+element.starttime+'</td></tr>';
+          tdData +=  '<tr onClick="clickTableRow('+inx+')" ><td>'+element.name+'</td><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+element.starttime+'</td></tr>';
         });
         document.getElementById('td1').innerHTML = tdData
       }
@@ -117,4 +119,8 @@ function launch_toast(tosterName, msg) {
   x.className = "show";
   document.getElementById("desc").innerHTML = msg;
   setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+}
+function clickTableRow(rowData){
+  console.log("rowData: - ",rowData);
+  console.log('responseSearchData: - ',responseSearchData[rowData]);
 }
