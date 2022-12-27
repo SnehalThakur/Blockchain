@@ -105,7 +105,7 @@ def driverRouteSet(driverRouteData):
     destination = driverRouteData['destination']
     availableSeats = driverRouteData['availableSeats']
     starttime = driverRouteData['starttime']
-    currentTime = date.today()+ "_"+starttime
+    currentTime = str(date.today())+ "_"+str(starttime)
     endtime = None
     dbloader.insertDriverRouteData(name, source, destination, availableSeats, currentTime, endtime)
     print("Driver Route Successfully Saved with name is", name)
@@ -118,7 +118,7 @@ def riderRouteSet(riderRouteData):
     source = riderRouteData['source']
     destination = riderRouteData['destination']
     time = riderRouteData['time']
-    currentTime = date.today() + "_" + time
+    currentTime = str(date.today()) + "_" + str(time)
     dbloader.insertRiderRouteData(name, source, destination, currentTime)
     print("Driver Route Successfully Saved with name is", name)
     driversInfo = searchAllDriversWithRoutes(source, destination)
