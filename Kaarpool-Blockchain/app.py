@@ -99,25 +99,25 @@ def riderRoute():
     return render_template('riderRegister.html')
 
 
-@app.route('/driverRouteData', methods=('POST'))
+@app.route('/getDriverRouteData', methods=('POST'))
 def driverRouteData():
     if request.method == 'POST':
         driverRouteDataRequest = request.get_json()
         print(driverRouteDataRequest)
         driverRouteResponse = driverRouteGet(driverRouteDataRequest)
         print("driverRouteInfoResponse =", driverRouteResponse)
-        return driverRouteResponse
+        return {"status": True, "data": driverRouteResponse}
     # return render_template('riderRegister.html')
 
 
-@app.route('/riderRouteData', methods=('POST'))
+@app.route('/getRiderRouteData', methods=('POST'))
 def riderRouteData():
     if request.method == 'POST':
         riderRouteDataRequest = request.get_json()
         print("riderRouteDataRequest =", riderRouteDataRequest)
         riderRouteDataResponse = riderRouteGet(riderRouteDataRequest)
         print("riderRouteDataResponse =", riderRouteDataResponse)
-        return riderRouteDataResponse
+        return {"status": True, "data": riderRouteDataResponse}
     # return render_template('riderRegister.html')
 
 
