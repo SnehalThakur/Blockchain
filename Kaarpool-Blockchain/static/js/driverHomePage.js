@@ -4,7 +4,25 @@ function init() {
   userData = JSON.parse(sessionStorage.getItem("userData"));
   console.log("userData: - ", userData);
   document.getElementById("userNameDiv").innerHTML = "Hi " + userData.name;
-
+  let payload = {
+    'name': userData.name,
+  }
+  console.log("payload: - ", payload);
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+  var payloadString = JSON.stringify(payload);
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      let res = JSON.parse(this.responseText)
+      console.log(typeof this.responseText);
+      console.log(typeof res);
+    }
+  };
+  xhttp.open("POST", "/driverRouteData", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(payloadString);
+  
 }
 
 init();
