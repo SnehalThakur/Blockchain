@@ -157,6 +157,7 @@ def retrieveRiderRouteData():
     cur = con.cursor()
     cur.execute("SELECT * FROM riderRoute")
     riderRouteData = cur.fetchall()
+    print("riderRouteData: - ",riderRouteData)
     con.close()
     return riderRouteData
 
@@ -271,8 +272,14 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}'")
     driverRouteDataWithSrcDes = cur.fetchall()
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6]}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
-    return driverRouteDataWithSrcDes
+    return driverRouteData_accumulator
 
 
 def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
@@ -299,5 +306,6 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
 # print(retrieveCorpusDataWithItemName("python"))
 # retrieveDriverRouteData()
 # retrieveDriverRouteDataWithName("raj")
-retrieveDriverData()
-retrieveRiderData()
+# retrieveDriverData()
+# retrieveRiderData()
+retrieveRiderRouteData()

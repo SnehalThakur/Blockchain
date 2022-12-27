@@ -142,4 +142,12 @@ def riderRouteGet(riderRouteData):
     print("riderRouteDataWithSourceAndDestination =", riderRouteDataWithSourceAndDestination)
     return riderRouteDataWithSourceAndDestination
 
+def driverRouteGetWithSrcDes(riderRouteData):
+    source = riderRouteData['source']
+    destination = riderRouteData['destination']
+    driverRouteDataWithSourceAndDestination = dbloader.retrieveDriverRouteDataWithSourceAndDestination(source, destination)
+    print("Rider Route Successfully Retrieve with Source {0} and Destination {1}".format(source, destination))
+    print("driverRouteDataWithSourceAndDestination =", driverRouteDataWithSourceAndDestination)
+    return driverRouteDataWithSourceAndDestination
+
 

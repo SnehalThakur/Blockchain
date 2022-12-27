@@ -106,7 +106,7 @@ function searchFunction(){
         }
       }
     };
-    xhttp.open("POST", "/getRiderRouteData", true);
+    xhttp.open("POST", "/getDriverRouteDataWithSrcAndDes", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(payloadString);
     console.log("Rider Register Event fired");

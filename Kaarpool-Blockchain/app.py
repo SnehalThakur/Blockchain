@@ -107,6 +107,15 @@ def driverRouteData():
         driverRouteResponse = driverRouteGet(driverRouteDataRequest)
         print("driverRouteInfoResponse =", driverRouteResponse)
         return {"status": True, "data": driverRouteResponse}
+
+@app.route('/getDriverRouteDataWithSrcAndDes', methods=('GET','POST'))
+def driverRouteDataWithSrcDes():
+    if request.method == 'POST':
+        driverRouteDataRequest = request.get_json()
+        print(driverRouteDataRequest)
+        driverRouteResponse = driverRouteGetWithSrcDes(driverRouteDataRequest)
+        print("driverRouteInfoResponse =", driverRouteResponse)
+        return {"status": True, "data": driverRouteResponse}
     # return render_template('riderRegister.html')
 
 
