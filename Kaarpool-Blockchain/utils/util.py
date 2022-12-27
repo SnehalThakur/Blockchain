@@ -13,9 +13,10 @@ def driverRegistration(driverData):
     licenseValidity = driverData['licenseValidity']
     insuranceNumber = driverData['insuranceNumber']
     existingDriverData = dbloader.retrieveDriverDataWithLicenseNumber(licenseNumber)
-    print("existingDriverData =",existingDriverData)
+    print("existingDriverData =", existingDriverData)
     if len(existingDriverData) < 1:
-        dbloader.insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber)
+        dbloader.insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity,
+                                  insuranceNumber)
         print("Driver Registration Successful with name is", name)
         return {"name": name, "email": email, "message": "Driver Registration Successful", "status": True}
     else:
@@ -119,7 +120,6 @@ def riderRouteSet(riderRouteData):
     dbloader.insertRiderRouteData(name, source, destination, time)
     print("Driver Route Successfully Saved with name is", name)
     driversInfo = searchAllDriversWithRoutes(source, destination)
-    # return {"name": name, "source": source, "destination": destination, "message": "Rider Route Successfully Saved", "status": True}
     print("driversInfo =", driversInfo)
     return driversInfo
 
@@ -127,15 +127,22 @@ def riderRouteSet(riderRouteData):
 def driverRouteGet(driverRouteData):
     name = driverRouteData['name']
     driverRouteDataWithName = dbloader.retrieveDriverRouteDataWithName(name)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithName:
+        driverRouteData_accumulator.append({k: item[k] for k in item.keys()})
+    # print(list_accumulator)
     print("Driver Route Successfully Retrieve with name is", name)
-    print("driverRouteDataWithName =", driverRouteDataWithName)
-    return driverRouteDataWithName
+    print("driverRouteDataWithName =", driverRouteData_accumulator)
+    return driverRouteData_accumulator
 
 
 def riderRouteGet(riderRouteData):
     source = riderRouteData['source']
     destination = riderRouteData['destination']
     riderRouteDataWithSourceAndDestination = dbloader.retrieveRiderRouteDataWithSourceAndDestination(source, destination)
+    riderRouteData_accumulator = []
+    for item in riderRouteDataWithSourceAndDestination:
+        riderRouteData_accumulator.append({k: item[k] for k in item.keys()})
     print("Rider Route Successfully Retrieve with Source {0} and Destination {1}".format(source, destination))
-    print("riderRouteDataWithSourceAndDestination =", riderRouteDataWithSourceAndDestination)
-    return riderRouteDataWithSourceAndDestination
+    print("riderRouteDataWithSourceAndDestination =", riderRouteData_accumulator)
+    return riderRouteData_accumulator
