@@ -24,8 +24,11 @@ function init() {
       else{
         res.data.forEach(element => {
           let timeData = element.starttime.split("_");
-          tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]+'</td></tr>';
+          tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]
+          +'</td><td>'+element.rider1+'</td></tr>';
+          // '</td><td>'+element.rider2+'</td><td>'+element.rider3+
         });
+
         document.getElementById('td1').innerHTML = tdData
       }
      
@@ -57,34 +60,34 @@ $(function () {
   //   {'locationTitle': 'YCC colleage, Hingna, Nagpur','locationCode':'011'},
   //   {'locationTitle': 'Bajaj nagar, Nagpur','locationCode':'012'},
   // ];
-  var availableTags = [
-    'Bajrang nagar, Manewada road, Nagpur',
-    'Omkar nagar, Manewada road, Nagpur',
-    'Rameshwari, Nagpur',
-    'Chhatrapati Sqr, Nagapur',
-    'Jaitala, Nagapur',
-    'Trimurti nagar, Nagapur',
-    'T-point, Nagpur',
-    'Hingna road, Nagpur',
-    'Mahindra sqr, Nagpur',
-    'IC sqr, Nagpur',
-    'YCC colleage, Hingna, Nagpur',
-    'Bajaj nagar, Nagpur',
-  ]
-  $("#tags").autocomplete({
-    source: availableTags,
-    select: function (event, ui) {
-      // $("#tags_code").val(ui.item.locationCode);  
-      console.log("ui.item.locationCode: - ", ui.item.locationCode)
-    }
-  });
-  $("#tags1").autocomplete({
-    source: availableTags,
-    select: function (event, ui) {
-      // $("#tags_code").val(ui.item.locationCode);  
-      console.log("ui.item.locationCode: - ", ui.item.locationCode)
-    }
-  });
+  // var availableTags = [
+  //   'Bajrang nagar, Manewada road, Nagpur',
+  //   'Omkar nagar, Manewada road, Nagpur',
+  //   'Rameshwari, Nagpur',
+  //   'Chhatrapati Sqr, Nagapur',
+  //   'Jaitala, Nagapur',
+  //   'Trimurti nagar, Nagapur',
+  //   'T-point, Nagpur',
+  //   'Hingna road, Nagpur',
+  //   'Mahindra sqr, Nagpur',
+  //   'IC sqr, Nagpur',
+  //   'YCC colleage, Hingna, Nagpur',
+  //   'Bajaj nagar, Nagpur',
+  // ]
+  // $("#tags").autocomplete({
+  //   source: availableTags,
+  //   select: function (event, ui) {
+  //     // $("#tags_code").val(ui.item.locationCode);  
+  //     console.log("ui.item.locationCode: - ", ui.item.locationCode)
+  //   }
+  // });
+  // $("#tags1").autocomplete({
+  //   source: availableTags,
+  //   select: function (event, ui) {
+  //     // $("#tags_code").val(ui.item.locationCode);  
+  //     console.log("ui.item.locationCode: - ", ui.item.locationCode)
+  //   }
+  // });
 });
 function confirmFunction() {
   var time = document.getElementById("appt").value;

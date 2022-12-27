@@ -9,50 +9,17 @@ function init() {
   
 init();
 $( function() {
-  // var availableTags = [
-  //   {'locationTitle': 'Bajrang nagar, Manewada road, Nagpur','locationCode':'001'},
-  //   {'locationTitle': 'Omkar nagar, Manewada road, Nagpur','locationCode':'002'},
-  //   {'locationTitle': 'Rameshwari, Nagpur','locationCode':'003'},
-  //   {'locationTitle': 'Chhatrapati Sqr, Nagapur','locationCode':'004'},
-  //   {'locationTitle': 'Jaitala, Nagapur','locationCode':'005'},
-  //   {'locationTitle': 'Trimurti nagar, Nagapur','locationCode':'006'},
-  //   {'locationTitle': 'T-point, Nagpur','locationCode':'007'},
-  //   {'locationTitle': 'Hingna road, Nagpur','locationCode':'008'},
-  //   {'locationTitle': 'Mahindra sqr, Nagpur','locationCode':'009'},
-  //   {'locationTitle': 'IC sqr, Nagpur','locationCode':'010'},
-  //   {'locationTitle': 'YCC colleage, Hingna, Nagpur','locationCode':'011'},
-  //   {'locationTitle': 'Bajaj nagar, Nagpur','locationCode':'012'},
-  // ];
-  // var availableTags = [
-  //       'Bajrang nagar, Manewada road, Nagpur',
-  //       'Omkar nagar, Manewada road, Nagpur',
-  //       'Rameshwari, Nagpur',
-  //       'Chhatrapati Sqr, Nagapur',
-  //        'Jaitala, Nagapur',
-  //        'Trimurti nagar, Nagapur',
-  //       'T-point, Nagpur',
-  //       'Hingna road, Nagpur',
-  //       'Mahindra sqr, Nagpur',
-  //        'IC sqr, Nagpur',
-  //        'YCC colleage, Hingna, Nagpur',
-  //       'Bajaj nagar, Nagpur',
-  //     ]
-  // $( "#tags" ).autocomplete({
-  //   source: availableTags,
-  //   select: function (event, ui) {
-  //     // $("#tags_code").val(ui.item.locationCode);  
-  //     console.log("ui.item.locationCode: - ",ui.item.locationCode)
-  //     }
-  // });
-  // $( "#tags1" ).autocomplete({
-  //   source: availableTags,
-  //   select: function (event, ui) {
-  //     // $("#tags_code").val(ui.item.locationCode);  
-  //     console.log("ui.item.locationCode: - ",ui.item.locationCode)
-  //     }
-  // });
   $("#selUser").select2();
   $("#selUserSource").select2();
+  $('.openmodale').click(function (e) {
+    e.preventDefault();
+    $('.modale').addClass('opened');
+});
+$('.closemodale').click(function (e) {
+    e.preventDefault();
+    $('.modale').removeClass('opened');
+});
+
 
 } );
 var responseSearchData ;
@@ -95,7 +62,7 @@ function searchFunction(){
       else{
         res.data.forEach((element,inx) => {
           // let timeData = element.starttime.split("_");
-          tdData +=  '<tr onClick="clickTableRow('+inx+')" ><td>'+element.name+'</td><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+element.starttime+'</td></tr>';
+          tdData +=  '<tr class="openmodale" onClick="clickTableRow('+inx+')" ><td class="openmodale">'+element.name+'</td><td class="openmodale">'+element.source+'</td><td class="openmodale">'+element.destination+'</td><td class="openmodale">'+element.starttime+'</td></tr>';
         });
         document.getElementById('td1').innerHTML = tdData
       }
@@ -120,7 +87,57 @@ function launch_toast(tosterName, msg) {
   document.getElementById("desc").innerHTML = msg;
   setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
 }
+var selectedData;
 function clickTableRow(rowData){
   console.log("rowData: - ",rowData);
   console.log('responseSearchData: - ',responseSearchData[rowData]);
+  selectedData = responseSearchData[rowData]
+  $('.modale').addClass('opened');
+}
+function cancelFunction(){
+  // $('.modale').addClass('opened');
+  $('.modale').removeClass('opened');
+}
+function successFunction(){
+  console.log("selectedData: - ",selectedData);
+  console.log("userData.name: - ",userData.name);
+  let payload = {
+    'driveName': selectedData.name,
+    'source':selectedData.source,
+    'destination': selectedData.destination,
+    'riderName': userData.name,
+    'time': selectedData.starttime
+  }
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+    var payloadString = JSON.stringify(payload);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        let res = JSON.parse(this.responseText)
+        console.log(typeof this.responseText);
+        console.log(typeof res);
+        if (res.status) {
+          // launch_toast("toast", res.message);
+          // sessionStorage.setItem("userData", this.responseText);
+          // window.location.href = "/driverHomePage";
+          console.log("In side sucess");
+          launch_toast("toast", "Ride booked successfully.");
+          // init();
+          $('.modale').removeClass('opened');
+
+        }
+        else {
+          launch_toast("toast1", "Error on ride booking.");
+
+        }
+      }
+      // else{
+      //   launch_toast("toast1", "Error on ride booking.");
+      // }
+    };
+    xhttp.open("POST", "/updateDriveRouteDataWithRiderName", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payloadString);
+    console.log("Rider Register Event fired");
 }
