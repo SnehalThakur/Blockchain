@@ -116,6 +116,7 @@ def retrieveDriverData():
     cur = con.cursor()
     cur.execute("SELECT * FROM driver")
     driverData = cur.fetchall()
+    print("driverData =",driverData)
     con.close()
     return driverData
 
@@ -125,8 +126,20 @@ def retrieveRiderData():
     cur = con.cursor()
     cur.execute("SELECT * FROM rider")
     riderData = cur.fetchall()
+    riderRouteData_accumulator = []
+    for item in riderData:
+        riderDataDict = {}
+        print("item.keys() =",item[0])
+        riderDataDict["id"]=item[0]
+        riderDataDict["name"]=item[1]
+        riderDataDict["contactNo"]=item[2]
+        riderDataDict["password"]=item[3]
+        riderDataDict["gender"]=item[4]
+        riderDataDict["email"]=item[5]
+        riderRouteData_accumulator.append(riderDataDict)
+    print("riderData =",riderRouteData_accumulator)
     con.close()
-    return riderData
+    return riderRouteData_accumulator
 
 
 def retrieveDriverRouteData():
@@ -134,6 +147,7 @@ def retrieveDriverRouteData():
     cur = con.cursor()
     cur.execute("SELECT * FROM driverRoute")
     driverRouteData = cur.fetchall()
+    print("driverRouteData =",driverRouteData)
     con.close()
     return driverRouteData
 
@@ -235,7 +249,10 @@ def retrieveDriverRouteDataWithName(name):
     driverRouteDataWithName = cur.fetchall()
     driverRouteData_accumulator = []
     for item in driverRouteDataWithName:
-        driverRouteData_accumulator.append({k: item[k] for k in item.keys()})
+        driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6]}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
     return driverRouteData_accumulator
 
@@ -265,7 +282,9 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     riderRouteDataWithSrcDes = cur.fetchall()
     riderRouteData_accumulator = []
     for item in riderRouteDataWithSrcDes:
-        riderRouteData_accumulator.append({k: item[k] for k in item.keys()})
+        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4]}
+        riderRouteData_accumulator.append(riderDataDict)
+    print("riderRouteData_accumulator =",riderRouteData_accumulator)
     con.close()
     return riderRouteData_accumulator
 
@@ -278,3 +297,7 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
 # insertRecipeData("python", pythonData)
 # print(retrieveCorpusData())
 # print(retrieveCorpusDataWithItemName("python"))
+# retrieveDriverRouteData()
+# retrieveDriverRouteDataWithName("raj")
+retrieveDriverData()
+retrieveRiderData()
