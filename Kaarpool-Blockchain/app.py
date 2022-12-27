@@ -99,6 +99,28 @@ def riderRoute():
     return render_template('riderRegister.html')
 
 
+@app.route('/driverRouteData', methods=('POST'))
+def driverRouteData():
+    if request.method == 'POST':
+        driverRouteDataRequest = request.get_json()
+        print(driverRouteDataRequest)
+        driverRouteResponse = driverRouteGet(driverRouteDataRequest)
+        print("driverRouteInfoResponse =", driverRouteResponse)
+        return driverRouteResponse
+    # return render_template('riderRegister.html')
+
+
+@app.route('/riderRouteData', methods=('POST'))
+def riderRouteData():
+    if request.method == 'POST':
+        riderRouteDataRequest = request.get_json()
+        print("riderRouteDataRequest =", riderRouteDataRequest)
+        riderRouteDataResponse = riderRouteGet(riderRouteDataRequest)
+        print("riderRouteDataResponse =", riderRouteDataResponse)
+        return riderRouteDataResponse
+    # return render_template('riderRegister.html')
+
+
 # Run Server
 if __name__ == '__main__':
     app.run(debug=True)
