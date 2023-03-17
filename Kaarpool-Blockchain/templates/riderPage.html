@@ -2,7 +2,7 @@
 <html lang="en" >
    <head>
       <meta charset="UTF-8">
-      <title>Driver Page</title>
+      <title>Rider Page</title>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       <link rel="stylesheet" href="./static/css/style.css">
@@ -246,7 +246,7 @@
             opacity: 0;
          }
       }
-      #tableDiv{
+      #tableDiv, #tableDiv1{
          display: none;
       }
       table {
@@ -332,11 +332,46 @@ tr:nth-child(even) {
 .modal-header h2 {
   font-size: 20px;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
       </style>
    </head>
    <body>
       <!-- partial:index.partial.html -->
       <header>
+         <div class="tooltip" style="margin-right: 15px;">
+            <b style="color: white;font-size: 17px;" >
+            <b id="moneyBalance">0 </b>
+         <span class="tooltiptext">Available Balance</span>
+         </b>
+         <b style="color: white;font-size: 17px;"><i class="fa fa-money" aria-hidden="true"></i></b>
+         </div>
+
         <b id="userNameDiv" style="color: white;">Hi</b>
       </header> 
 
@@ -386,14 +421,14 @@ tr:nth-child(even) {
                         <option value='Omkar nagar, Manewada road, Nagpur(002)'>Omkar nagar, Manewada road, Nagpur</option> 
                         <option value='Rameshwari, Nagpur(003)'>Rameshwari, Nagpur</option> 
                         <option value='Chhatrapati Sqr, Nagpur(004)'>Chhatrapati Sqr, Nagpur</option> 
-                        <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option> 
+<!--                        <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option> -->
                         <option value='Trimurti nagar, Nagapur(006)'>Trimurti nagar, Nagapur</option> 
                         <option value='T-point, Nagpur(007)'>T-point, Nagpur</option> 
                         <option value='Hingna road, Nagpur(008)'>Hingna road, Nagpur</option> 
                         <option value='Mahindra sqr, Nagpur(009)'>Mahindra sqr, Nagpur</option> 
                         <option value='IC sqr, Nagpur(010)'>IC sqr, Nagpur</option> 
                         <option value='YCC colleage, Hingna, Nagpur(011)'>YCC colleage, Hingna, Nagpur</option> 
-                        <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option> 
+<!--                        <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option> -->
                    </select>
                </div>
                <div class="p-10" style="text-align: center;">
@@ -401,14 +436,21 @@ tr:nth-child(even) {
                </div>
             </div>
          </div>
+         <div id="tableDiv1" style="margin-left:10px; border: 1px solid green; border-radius:10px;width:200px; padding :10px;margin-top:10px;">
+            <b>Ride Fare - </b>
+            <b id="rideFire"></b>
+         </div>
+
          <div id="tableDiv" style="padding: 20px;">
-            <div style="text-align: center; font-size: 18px;font-weight: 600; margin-bottom: 10px;">Avalaible Rides</div>
+            <div style="text-align: center; font-size: 18px;font-weight: 600; margin-bottom: 10px;">Avalaible Driver</div>
             <table>
                <tr>
+
                   <th>Name</th>
                   <th>Source Location</th>
                   <th>Destination Location</th>
                   <th>Time</th>
+                  <th>Status</th>
                  <!-- <th>Destination Location</th> -->
                </tr>
                <tbody id="td1" style="text-align: center;">           

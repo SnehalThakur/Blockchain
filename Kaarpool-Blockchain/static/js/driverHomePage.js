@@ -22,26 +22,132 @@ function init() {
         document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
       }
       else{
-        res.data.forEach(element => {
+      responseTableData= res.data
+        res.data.forEach((element,index) => {
           let timeData = element.starttime.split("_");
           tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]
-          +'</td><td>'+element.rider1+'</td></tr>';
+          +'</td><td>'+element.rider1+'</td>'
+          if(element.rideStatus == 0){
+            tdData += '<td><button type="button" onClick="clickTableRow('+index+')">Start Ride</button></td>'
+          }
+          else{
+          tdData += '<td>Ride Stated</td>'
+          }
+          tdData +='</tr>';
           // '</td><td>'+element.rider2+'</td><td>'+element.rider3+
         });
 
-        document.getElementById('td1').innerHTML = tdData
+        document.getElementById('td1').innerHTML = tdData;
+          xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      let responseTextData = JSON.parse(this.responseText);
+      console.log(typeof responseTextData);
+      console.log(responseTextData);
+
+      document.getElementById("moneyBalance").innerHTML = responseTextData.balance;
+
+    }
+    else{
+//      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+
+    }
+  };
+  xhttp.open("POST", "/getRiderBalance", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(payloadString);
       }
-     
+
     }
     else{
       document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
 
     }
   };
+
   xhttp.open("POST", "/getDriverRouteData", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(payloadString);
-  
+
+
+
+}
+function clickTableRow( index){
+    console.log("Index: -",index);
+    console.log("element: -",responseTableData[index]);
+    let rideFaire;
+  if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Omkar nagar, Manewada road, Nagpur(002)") ||
+  ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Omkar nagar, Manewada road, Nagpur(002)")){
+    rideFaire = "40 rs"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Rameshwari, Nagpur(003)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Rameshwari, Nagpur(003)")){
+    rideFaire = "60 rs"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Chhatrapati Sqr, Nagpur(004)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Chhatrapati Sqr, Nagpur(004)")){
+    rideFaire = "80"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Trimurti nagar, Nagapur(006)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Trimurti nagar, Nagapur(006)")){
+    rideFaire = "100"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="T-point, Nagpur(007)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="T-point, Nagpur(007)")){
+    rideFaire = "120"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna road, Nagpur(008)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Hingna road, Nagpur(008)")){
+    rideFaire = "140"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna road, Nagpur(008)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Hingna road, Nagpur(008)")){
+    rideFaire = "140"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Mahindra sqr, Nagpur(009)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Mahindra sqr, Nagpur(009)")){
+    rideFaire = "160"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="IC sqr, Nagpur(010)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="IC sqr, Nagpur(010)")){
+    rideFaire = "180"
+  }
+  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="YCC colleage, Hingna, Nagpur(011)") ||
+   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="YCC colleage, Hingna, Nagpur(011)")){
+    rideFaire = "220"
+  }
+  else{
+    rideFaire = "180 rs"
+  }
+    let payload = {
+    'driveName': userData.name,
+    'source': responseTableData[index].source ,
+    'destination': responseTableData[index].destination,
+    'time': responseTableData[index].starttime,
+    'fare': rideFaire
+
+  }
+  console.log("payload: - ", payload);
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+  var payloadString = JSON.stringify(payload);
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      let responseTextData = JSON.parse(this.responseText);
+      console.log(typeof responseTextData);
+      console.log(responseTextData);
+      init();
+    }
+    else{
+//      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+
+    }
+  };
+  xhttp.open("POST", "/startDriveRide", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(payloadString);
+
 }
 
 init();

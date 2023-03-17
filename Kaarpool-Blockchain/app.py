@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request
 import utils.SQLiteDB as dbloader
+from main import *
 
 # Configure application
 from utils.util import *
@@ -16,13 +17,16 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def startPage():
     return render_template("1stpage.html")
 
+
 @app.route("/riderHomePage")
 def riderPage():
     return render_template("riderPage.html")
 
+
 @app.route("/driverHomePage")
 def driverPage():
     return render_template("driverPage.html")
+
 
 # @app.route('/riderLogin.html', methods=['GET', 'POST'])
 # def index():
@@ -99,7 +103,7 @@ def riderRoute():
     return render_template('riderRegister.html')
 
 
-@app.route('/getDriverRouteData', methods=('GET','POST'))
+@app.route('/getDriverRouteData', methods=('GET', 'POST'))
 def driverRouteData():
     if request.method == 'POST':
         driverRouteDataRequest = request.get_json()
@@ -108,7 +112,8 @@ def driverRouteData():
         print("driverRouteInfoResponse =", driverRouteResponse)
         return {"status": True, "data": driverRouteResponse}
 
-@app.route('/getDriverRouteDataWithSrcAndDes', methods=('GET','POST'))
+
+@app.route('/getDriverRouteDataWithSrcAndDes', methods=('GET', 'POST'))
 def driverRouteDataWithSrcDes():
     if request.method == 'POST':
         driverRouteDataRequest = request.get_json()
@@ -119,17 +124,27 @@ def driverRouteDataWithSrcDes():
     # return render_template('riderRegister.html')
 
 
-@app.route('/getRiderRouteData', methods=('GET','POST'))
+@app.route('/getRiderRouteData', methods=('GET', 'POST'))
 def riderRouteData():
     if request.method == 'POST':
         riderRouteDataRequest = request.get_json()
         print("riderRouteDataRequest =", riderRouteDataRequest)
         riderRouteDataResponse = riderRouteGet(riderRouteDataRequest)
         print("riderRouteDataResponse =", riderRouteDataResponse)
-        return {"status": True, "data": riderRouteDataResponse}\
+        return {"status": True, "data": riderRouteDataResponse}
 
 
-@app.route('/updateDriveRouteDataWithRiderName', methods=('GET','POST'))
+@app.route('/getRiderRouteDataWithName', methods=('GET', 'POST'))
+def riderRouteDataWithNameSOurceDestination():
+    if request.method == 'POST':
+        riderRouteDataRequest = request.get_json()
+        print("riderRouteDataRequest =", riderRouteDataRequest)
+        riderRouteDataResponse = riderRouteGetWithNameSourceDestination(riderRouteDataRequest)
+        print("riderRouteDataResponse =", riderRouteDataResponse)
+        return {"status": True, "data": riderRouteDataResponse}
+
+
+@app.route('/updateDriveRouteDataWithRiderName', methods=('GET', 'POST'))
 def driveRouteDataWithRiderName():
     if request.method == 'POST':
         driveRouteDataRequestWithRiderName = request.get_json()
@@ -138,6 +153,39 @@ def driveRouteDataWithRiderName():
         print("driverRouteDataWithRiderNameResponse =", driverRouteDataWithRiderNameResponse)
         return {"status": True, "data": driverRouteDataWithRiderNameResponse}
     # return render_template('riderRegister.html')
+
+
+@app.route('/startDriveRide', methods=('GET', 'POST'))
+def driverRideStatus():
+    if request.method == 'POST':
+        driveRouteRideStatusRequest = request.get_json()
+        print("driveRouteRideStatusRequest for driveRouteRideStatusRequest=", driveRouteRideStatusRequest)
+        driverRouteRideStatusResponse = updateDriveRouteRideStatus(driveRouteRideStatusRequest)
+        print("driverRouteRideStatusResponse =", driverRouteRideStatusResponse)
+        return {"status": True, "data": driverRouteRideStatusResponse}
+    # return render_template('riderRegister.html')
+
+
+@app.route('/getRiderBalance', methods=('GET', 'POST'))
+def getRiderBalanceData():
+    if request.method == 'POST':
+        getBalanceDataRequest = request.get_json()
+        print(getBalanceDataRequest)
+        name = getBalanceDataRequest['name']
+        riderBalance = print_eth_detail()
+        print("riderBalance =", riderBalance)
+        return {"name": name, "balance": riderBalance}
+
+
+# @app.route('/retrieveDriverData', methods=('GET', 'POST'))
+# def retrieveDriverDataFromDB():
+#     if request.method == 'POST':
+#         getBalanceDataRequest = request.get_json()
+#         print(getBalanceDataRequest)
+#         name = getBalanceDataRequest['name']
+#         riderBalance = retrieveDriverData()
+#         print("riderBalance =", riderBalance)
+#         return {"name": name, "balance": riderBalance}
 
 
 # Run Server

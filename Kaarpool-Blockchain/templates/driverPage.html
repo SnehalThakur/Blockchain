@@ -266,13 +266,45 @@ tr:nth-child(even) {
 .box-form{
    display: inherit;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
    </style>
 </head>
 
 <body>
    <!-- partial:index.partial.html -->
    <header>
+      <div class="tooltip" style="margin-right: 15px;">
+            <b style="color: white;font-size: 17px;" >
+            <b id="moneyBalance">0 </b>
+         <span class="tooltiptext">Available Balance</span>
+         </b>
+         <b style="color: white;font-size: 17px;"><i class="fa fa-money" aria-hidden="true"></i></b>
+         </div>
       <b id="userNameDiv" style="color: white;">Hi</b>
    </header>
 
@@ -362,8 +394,7 @@ tr:nth-child(even) {
                <th>Date</th>
               <th>Time</th>
               <th>Rider </th>
-              <!-- <th>Rider 2</th>
-              <th>Rider 3</th> -->
+              <th>Action</th>
               <!-- <th>Destination Location</th> -->
             </tr>
             <tbody id="td1">           
@@ -371,6 +402,7 @@ tr:nth-child(even) {
           </table>
       </div>
    </div>
+
    <div id="toast">
       <div id="img" style="color: green;">
          <i class="fa fa-check-circle-o" aria-hidden="true"></i>
