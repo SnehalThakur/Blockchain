@@ -19,19 +19,19 @@ function init() {
       console.log(res.data);
       let tdData =''
       if(res.data?.length == 0){
-        document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+        document.getElementById('td1').innerHTML = '<tr>No Data available</tr>';
       }
       else{
       responseTableData= res.data
         res.data.forEach((element,index) => {
           let timeData = element.starttime.split("_");
           tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]
-          +'</td><td>'+element.rider1+'</td>'
+          +'</td><td>'+element.rider1+'</td><td>'+element.rider2+'</td>'
           if(element.rideStatus == 0){
             tdData += '<td><button type="button" onClick="clickTableRow('+index+')">Start Ride</button></td>'
           }
           else{
-          tdData += '<td>Ride Stated</td>'
+          tdData += '<td>Ride Started</td>'
           }
           tdData +='</tr>';
           // '</td><td>'+element.rider2+'</td><td>'+element.rider3+
@@ -60,7 +60,7 @@ function init() {
 
     }
     else{
-      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+      document.getElementById('td1').innerHTML = '<tr>No Data available</tr>';
 
     }
   };
@@ -76,44 +76,44 @@ function clickTableRow( index){
     console.log("Index: -",index);
     console.log("element: -",responseTableData[index]);
     let rideFaire;
-  if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Omkar nagar, Manewada road, Nagpur(002)") ||
-  ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Omkar nagar, Manewada road, Nagpur(002)")){
+  if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Omkar Nagar, Manewada Road, Nagpur(002)") ||
+  ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Omkar Nagar, Manewada Road, Nagpur(002)")){
     rideFaire = "40 rs"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Rameshwari, Nagpur(003)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Rameshwari, Nagpur(003)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Rameshwari, Nagpur(003)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Rameshwari, Nagpur(003)")){
     rideFaire = "60 rs"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Chhatrapati Sqr, Nagpur(004)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Chhatrapati Sqr, Nagpur(004)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Chhatrapati Square, Nagpur(004)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Chhatrapati Square, Nagpur(004)")){
     rideFaire = "80"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Trimurti nagar, Nagapur(006)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Trimurti nagar, Nagapur(006)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Trimurti Nagar, Nagpur(006)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Trimurti Nagar, Nagpur(006)")){
     rideFaire = "100"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="T-point, Nagpur(007)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="T-point, Nagpur(007)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="T-point, Nagpur(007)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="T-point, Nagpur(007)")){
     rideFaire = "120"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna road, Nagpur(008)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Hingna road, Nagpur(008)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna Road, Nagpur(008)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Hingna Road, Nagpur(008)")){
     rideFaire = "140"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna road, Nagpur(008)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Hingna road, Nagpur(008)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Hingna Road, Nagpur(008)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Hingna Road, Nagpur(008)")){
     rideFaire = "140"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="Mahindra sqr, Nagpur(009)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="Mahindra sqr, Nagpur(009)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="Mahindra Square, Nagpur(009)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="Mahindra Square, Nagpur(009)")){
     rideFaire = "160"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="IC sqr, Nagpur(010)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="IC sqr, Nagpur(010)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="IC Square, Nagpur(010)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="IC Square, Nagpur(010)")){
     rideFaire = "180"
   }
-  else if((responseTableData[index].source=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].destination =="YCC colleage, Hingna, Nagpur(011)") ||
-   ( responseTableData[index].destination=="Bajrang nagar, Manewada road, Nagpur(001)" &&  responseTableData[index].source=="YCC colleage, Hingna, Nagpur(011)")){
+  else if((responseTableData[index].source=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].destination =="YCCE College, Hingna, Nagpur(011)") ||
+   ( responseTableData[index].destination=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  responseTableData[index].source=="YCCE College, Hingna, Nagpur(011)")){
     rideFaire = "220"
   }
   else{
@@ -196,7 +196,7 @@ $(function () {
   // });
 });
 function confirmFunction() {
-  var time = document.getElementById("appt").value;
+  var time = document.getElementById("timepicker-12-hr").value;
   var sourceLoacation = document.getElementById("selUserSource").value;
   var destinationLoacation = document.getElementById("selUser").value;
   var vehicleSites = document.getElementById("vehicle").value;
@@ -252,6 +252,8 @@ function launch_toast(tosterName, msg) {
   setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
 }
 $(document).ready(function () {
+
+   $('.timepicker-12-hr').wickedpicker();
 
   // Initialize select2
   $("#selUser").select2();

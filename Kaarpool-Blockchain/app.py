@@ -110,7 +110,11 @@ def driverRouteData():
         print(driverRouteDataRequest)
         driverRouteResponse = driverRouteGet(driverRouteDataRequest)
         print("driverRouteInfoResponse =", driverRouteResponse)
-        return {"status": True, "data": driverRouteResponse}
+        if len(driverRouteResponse) > 0 and driverRouteResponse[0]["driverSlotStatus"] != "":
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteResponse}
 
 
 @app.route('/getDriverRouteDataWithSrcAndDes', methods=('GET', 'POST'))
@@ -120,7 +124,25 @@ def driverRouteDataWithSrcDes():
         print(driverRouteDataRequest)
         driverRouteResponse = driverRouteGetWithSrcDes(driverRouteDataRequest)
         print("driverRouteInfoResponse =", driverRouteResponse)
-        return {"status": True, "data": driverRouteResponse}
+        if len(driverRouteResponse) > 0 and driverRouteResponse[0]["driverSlotStatus"] != "":
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteResponse}
+
+
+@app.route('/getDriverRouteDataWithSrcDesAndTime', methods=('GET', 'POST'))
+def driverRouteDataWithSrcDesTime():
+    if request.method == 'POST':
+        driverRouteDataRequest = request.get_json()
+        print(driverRouteDataRequest)
+        driverRouteResponse = driverRouteGetWithSrcDesTime(driverRouteDataRequest)
+        print("Driver Route Info Response =", driverRouteResponse)
+        if len(driverRouteResponse) > 0 and driverRouteResponse[0]["driverSlotStatus"] != "":
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteResponse}
     # return render_template('riderRegister.html')
 
 
@@ -151,7 +173,11 @@ def driveRouteDataWithRiderName():
         print("driveRouteDataRequest for driveRouteDataRequestWithRiderName=", driveRouteDataRequestWithRiderName)
         driverRouteDataWithRiderNameResponse = updateDriveRouteWithRiderName(driveRouteDataRequestWithRiderName)
         print("driverRouteDataWithRiderNameResponse =", driverRouteDataWithRiderNameResponse)
-        return {"status": True, "data": driverRouteDataWithRiderNameResponse}
+        if driverRouteDataWithRiderNameResponse != None and driverRouteDataWithRiderNameResponse['rideSlotStatus'] == 0:
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteDataWithRiderNameResponse}
     # return render_template('riderRegister.html')
 
 
@@ -161,6 +187,17 @@ def driverRideStatus():
         driveRouteRideStatusRequest = request.get_json()
         print("driveRouteRideStatusRequest for driveRouteRideStatusRequest=", driveRouteRideStatusRequest)
         driverRouteRideStatusResponse = updateDriveRouteRideStatus(driveRouteRideStatusRequest)
+        print("driverRouteRideStatusResponse =", driverRouteRideStatusResponse)
+        return {"status": True, "data": driverRouteRideStatusResponse}
+    # return render_template('riderRegister.html')
+
+
+@app.route('/deleteDriveRouteDataWithRiderName', methods=('GET', 'POST'))
+def deleteDriveRouteDataWithRiderName():
+    if request.method == 'POST':
+        driveRouteRideStatusRequest = request.get_json()
+        print("driveRouteRideStatusRequest for driveRouteRideStatusRequest=", driveRouteRideStatusRequest)
+        driverRouteRideStatusResponse = updateDriveRouteDeleteRiderName(driveRouteRideStatusRequest)
         print("driverRouteRideStatusResponse =", driverRouteRideStatusResponse)
         return {"status": True, "data": driverRouteRideStatusResponse}
     # return render_template('riderRegister.html')

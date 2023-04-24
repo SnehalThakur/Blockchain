@@ -167,13 +167,29 @@ def driverRouteGetWithSrcDes(riderRouteData):
     return driverRouteDataWithSourceAndDestination
 
 
+def driverRouteGetWithSrcDesTime(riderRouteData):
+    source = riderRouteData['source']
+    destination = riderRouteData['destination']
+    starttime = str(date.today()) + "_" + str(riderRouteData['starttime'])
+    driverRouteDataWithSourceAndDestination = dbloader.retrieveDriverRouteDataWithSourceTimeAndDestination(source, destination, starttime)
+    print("====== Rider Route Successfully Retrieve with Source {0} and Destination {1} ======".format(source, destination))
+    print("====== driverRouteDataWithSourceAndDestination = ", driverRouteDataWithSourceAndDestination, "======")
+    return driverRouteDataWithSourceAndDestination
+
+
 def updateDriveRouteWithRiderName(driverRouteData):
     driveName = driverRouteData['driveName']
     riderName = driverRouteData['riderName']
     source = driverRouteData['source']
     destination = driverRouteData['destination']
-    time = driverRouteData['time']
-    dbloader.updateDriverRouteDataWithRiderName(driveName, source, destination, riderName, time)
+    time = str(date.today()) + "_" + str(driverRouteData['time'])
+    driverRouteData = dbloader.retrieveDriverRouteDataWithDriverNameSourceDestinationAndTime(driveName, source, destination, time)
+    if len(driverRouteData) > 0 and driverRouteData[0]["rider1"] != "" and driverRouteData[0]["rider2"] != "":
+        return {"rideSlotStatus": 0, "info": "Sorry! Ride is full"}
+    elif len(driverRouteData) > 0 and driverRouteData[0]["rider1"] == "":
+        dbloader.updateDriverRouteDataWithRider1Name(driveName, source, destination, riderName, time)
+    elif len(driverRouteData) > 0 and driverRouteData[0]["rider1"] != "" and driverRouteData[0]["rider2"] == "":
+        dbloader.updateDriverRouteDataWithRider2Name(driveName, source, destination, riderName, time)
     dbloader.insertRiderRouteData(riderName, source, destination, time, 1, driveName)
     # dbloader.updateRiderRouteDataWithDriverName(driveName, source, destination, riderName, time)
     print("====== Driver Route Successfully Updated with Rider Name {0} ======".format(riderName))
@@ -190,5 +206,21 @@ def updateDriveRouteRideStatus(driverRouteData):
     dbloader.updateDriverRouteRideStatus(driveName, source, destination, time)
     print("=== Sending money to driver INR {0}  ETH {1}".format(fareAmountInINR, amountInETH))
     # riderETHBalance, driverETHBalance = send_eth_api(fare)
+    print("====== Driver Route Status Changed Successfully =====")
+
+
+def updateDriveRouteDeleteRiderName(driverRouteData):
+    driverName = driverRouteData['driveName']
+    source = driverRouteData['source']
+    destination = driverRouteData['destination']
+    riderName = driverRouteData['riderName']
+    time = str(date.today()) + "_" + str(driverRouteData['time'])
+    driverRouteResponse1 = dbloader.retrieveDriverRouteDataWithDriverNameRider1NameSourceDestinationAndTime(driverName, source, destination, time, riderName)
+    if len(driverRouteResponse1):
+        dbloader.updateDriverRouteDataWithRider1Name(driverName, source, destination, "", time, 0)
+    driverRouteResponse2 = dbloader.retrieveDriverRouteDataWithDriverNameRider2NameSourceDestinationAndTime(driverName, source, destination, time, riderName)
+    if len(driverRouteResponse2):
+        dbloader.updateDriverRouteDataWithRider2Name(driverName, source, destination, "", time, 0)
+
     print("====== Driver Route Status Changed Successfully =====")
 

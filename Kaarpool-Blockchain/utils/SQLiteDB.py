@@ -71,15 +71,25 @@ def createDriverRouteTableIfNotExist():
                             endtime text,
                             rider1 text,
                             rideStatus integer,
-                            rider2 text
+                            rider2 text,
+                            rider1Status integer,
+                            rider2Status integer
                         );
                     """)
+
+
+def alterDriverRouteTable():
+    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    print(sqlConnection)
+
+    sqlConnection.execute("""ALTER TABLE driverRoute ADD COLUMN rider2Status integer""")
 
 
 # cursor = sqlConnection.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
 # print(cursor.fetchall())
 
-def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity, insuranceNumber):
+def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity,
+                     insuranceNumber):
     con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
 
@@ -112,8 +122,9 @@ def insertDriverRouteData(name, source, destination, availableSeats, starttime, 
 def insertRiderRouteData(name, source, destination, time, confirmRideStatus, driverName):
     con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
     cur = con.cursor()
-    cur.execute("INSERT INTO riderRoute (name, source, destination, time, confirmRideStatus, driverName) VALUES (?,?,?,?,?,?)",
-                (name, source, destination, time, confirmRideStatus, driverName))
+    cur.execute(
+        "INSERT INTO riderRoute (name, source, destination, time, confirmRideStatus, driverName) VALUES (?,?,?,?,?,?)",
+        (name, source, destination, time, confirmRideStatus, driverName))
     con.commit()
     con.close()
 
@@ -182,11 +193,12 @@ def retrieveDriverRouteData():
         driverDataDict["rider1"] = item[7]
         driverDataDict["rideStatus"] = item[8]
         driverDataDict["rider2"] = item[9]
+        driverDataDict["rider1Status"] = item[10]
+        driverDataDict["rider2Status"] = item[11]
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData =", driverRouteData_accumulator)
     con.close()
     return driverRouteData_accumulator
-
 
 
 def retrieveRiderRouteData():
@@ -299,11 +311,36 @@ def retrieveDriverRouteDataWithName(name):
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}' ORDER BY id DESC LIMIT 1")
     driverRouteDataWithName = cur.fetchall()
+    print("driverRouteDataWithName: - ", driverRouteDataWithName)
+    driverDetails = retrieveDriverDataWithName(name)[0]
     driverRouteData_accumulator = []
     for item in driverRouteDataWithName:
-        driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": item[7],
-                          "rideStatus": item[8], "rider2": item[9]}
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
+                          "rider1": rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "driverSlotStatus": slotStatus}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
@@ -317,8 +354,12 @@ def retrieveRiderRouteDataWithNameSourceDestination(name, source, destination):
     riderRouteDataWithName = cur.fetchall()
     riderRouteData_accumulator = []
     for item in riderRouteDataWithName:
+        driverDetail = retrieveDriverDataWithName(item[6])[0]
+        riderDetail = retrieveRiderDataWithName(item[1])[0]
+
         riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4],
-                         "confirmRideStatus": item[5], "driverName": item[6]}
+                         "confirmRideStatus": item[5], "driverName": item[6], "driverGender": driverDetail[4],
+                         "riderGender": riderDetail[4]}
         riderRouteData_accumulator.append(riderDataDict)
     print("riderRouteData_accumulator =", riderRouteData_accumulator)
     con.close()
@@ -330,11 +371,236 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}'")
     driverRouteDataWithSrcDes = cur.fetchall()
+    print("driverRouteDataWithSrcDes: - ", driverRouteDataWithSrcDes)
     driverRouteData_accumulator = []
     for item in driverRouteDataWithSrcDes:
-        driverDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": item[7],
-                          "rideStatus": item[8], "rider2": item[9]}
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
+                          "rider1": rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "driverSlotStatus": slotStatus}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
+    con.close()
+    return driverRouteData_accumulator
+
+
+def retrieveDriverRouteDataWithSourceTimeAndDestination(source, destination, time):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(
+        f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}' AND starttime='{time}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    print("driverRouteDataWithSrcDes: - ", driverRouteDataWithSrcDes)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
+                          "rider1": rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "driverSlotStatus": slotStatus}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
+    con.close()
+    return driverRouteData_accumulator
+
+
+def retrieveDriverRouteDataWithDriverNameSourceAndDestination(driverName, source, destination):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(
+        f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    print("Driver Route Data With DriverName Source And Destination: - ", driverRouteDataWithSrcDes)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
+                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
+                          "driverSlotStatus": slotStatus}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
+    con.close()
+    return driverRouteData_accumulator
+
+
+def retrieveDriverRouteDataWithDriverNameSourceDestinationAndTime(driverName, source, destination, time):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(
+        f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    print("Driver Route Data With DriverName, Time, Source And Destination: - ", driverRouteDataWithSrcDes)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
+                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
+                          "driverSlotStatus": slotStatus}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
+    con.close()
+    return driverRouteData_accumulator
+
+
+def retrieveDriverRouteDataWithDriverNameRider1NameSourceDestinationAndTime(driverName, source, destination, time, riderName):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(
+        f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}' AND rider1='{riderName}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    print("Driver Route Data With DriverName, Time, Source And Destination: - ", driverRouteDataWithSrcDes)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
+                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
+                          "driverSlotStatus": slotStatus}
+        driverRouteData_accumulator.append(driverDataDict)
+    print("driverRouteData_accumulator =", driverRouteData_accumulator)
+    con.close()
+    return driverRouteData_accumulator
+
+
+def retrieveDriverRouteDataWithDriverNameRider2NameSourceDestinationAndTime(driverName, source, destination, time, riderName):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    cur.execute(
+        f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}' AND rider2='{riderName}'")
+    driverRouteDataWithSrcDes = cur.fetchall()
+    print("Driver Route Data With DriverName, Time, Source And Destination: - ", driverRouteDataWithSrcDes)
+    driverRouteData_accumulator = []
+    for item in driverRouteDataWithSrcDes:
+        driverName = item[1]
+        rider1Name = item[7]
+        rider2Name = item[9]
+        rider1Detail = ""
+        rider2Detail = ""
+        rider1Gender = ""
+        rider2Gender = ""
+        driverDetail = retrieveDriverDataWithName(driverName)[0]
+        if rider1Name != "":
+            rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
+            if rider1Detail != "":
+                rider1Gender = rider1Detail[4]
+        if rider2Name != "":
+            rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
+            if rider2Detail != "":
+                rider2Gender = rider2Detail[4]
+        slotStatus = ""
+        if rider1Name != "" and rider2Name != "":
+            slotStatus = False
+        driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
+                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "rider1Gender": rider1Gender,
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
+                          "driverSlotStatus": slotStatus}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
     con.close()
@@ -348,7 +614,8 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     riderRouteDataWithSrcDes = cur.fetchall()
     riderRouteData_accumulator = []
     for item in riderRouteDataWithSrcDes:
-        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4], "confirmRideStatus": item[5], "driverName": item[6]}
+        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4],
+                         "confirmRideStatus": item[5], "driverName": item[6]}
         riderRouteData_accumulator.append(riderDataDict)
     print("riderRouteData_accumulator =", riderRouteData_accumulator)
     con.close()
@@ -362,19 +629,33 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     riderRouteDataWithSrcDes = cur.fetchall()
     riderRouteData_accumulator = []
     for item in riderRouteDataWithSrcDes:
-        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4], "confirmRideStatus": item[5], "driverName": item[6]}
+        driverDetail = retrieveDriverDataWithName(item[6])[0]
+        rider1Detail = retrieveRiderDataWithName(item[1])[0]
+
+        riderDataDict = {"id": item[0], "name": item[1], "source": item[2], "destination": item[3], "time": item[4],
+                         "confirmRideStatus": item[5],
+                         "driverName": item[6], "driverGender": driverDetail[4], "rider1Gender": rider1Detail[4]}
         riderRouteData_accumulator.append(riderDataDict)
     print("riderRouteData_accumulator =", riderRouteData_accumulator)
     con.close()
     return riderRouteData_accumulator
 
 
-def updateDriverRouteDataWithRiderName(driveName, source, destination, riderName, time):
+def updateDriverRouteDataWithRider1Name(driveName, source, destination, riderName="", time="", rider1Status=1):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    # Updating - ,availableSeats=''
+    cur.execute(f"UPDATE driverRoute SET rider1 = '{riderName}', rider1Status = {rider1Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteDataWithRider2Name(driveName, source, destination, riderName="", time="", rider2Status=1):
     con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
     cur = con.cursor()
     # Updating - ,availableSeats=''
     cur.execute(
-        f"UPDATE driverRoute SET rider1 = '{riderName}'  WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+        f"UPDATE driverRoute SET rider2='{riderName}', rider2Status={rider2Status}  WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
     con.commit()
     con.close()
 
@@ -409,6 +690,16 @@ def updateDriverRouteRideStatus(driveName, source, destination, time):
     con.close()
 
 
+def updateDriverRouteDeleteRiderName(driveName, source, destination, time, riderName):
+    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    cur = con.cursor()
+    # Updating
+    cur.execute(
+        f"UPDATE driverRoute SET rider1 = '' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+    con.commit()
+    con.close()
+
+
 def updateDriverBalanceWithName(name, balance):
     con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
     cur = con.cursor()
@@ -428,12 +719,11 @@ def updateRiderBalanceWithName(name, balance):
     con.commit()
     con.close()
 
-
 # createRiderTableIfNotExist()
 # createDriverTableIfNotExist()
 # createRiderRouteTableIfNotExist()
 # createDriverRouteTableIfNotExist()
-
+# alterDriverRouteTable()
 
 # insertDriverData(name='driver', contactNo="9999999999", password="12345", gender="Male", email="driver@gmail.com", vehicle="4 wheeler", licenseNumber="lic115621", licenseValidity="20-05-2025", insuranceNumber="ins115621")
 #
@@ -450,7 +740,7 @@ def updateRiderBalanceWithName(name, balance):
 # updateRiderRouteStatus('rider')
 #
 # print(retrieveRiderRouteData())
-# print(retrieveDriverRouteData())
+# print(retrieveDriverRouteDataWithSourceTimeAndDestination("Bajrang nagar, Manewada road, Nagpur(001)", "Omkar nagar, Manewada road, Nagpur(002)","2023-04-20_10 : 30 AM"))
 # print(retrieveCorpusData())
 # print(retrieveCorpusDataWithItemName("python"))
 # retrieveDriverRouteData()

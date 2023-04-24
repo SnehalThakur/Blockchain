@@ -19,6 +19,12 @@
 
    <!-- Select2 JS -->
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+   <!-- Timepicker Js -->
+<script src="./static/dist/wickedpicker.min.js"></script>
+
+<!-- Timepicker CSS -->
+<link rel="stylesheet" href="./static/dist/wickedpicker.min.css">
+
    <style>
       header {
          text-align: right;
@@ -327,57 +333,51 @@ tr:nth-child(even) {
                   <option value="0">---Select your vehicle---
                   <option value=”1”>1
                   <option value=”2”>2
-                  <option value=”3”>3
+<!--                  <option value=”3”>3-->
                </select>
             </div>
             <div class="p-10 flex">
                <div class="lable-div" for="appt">Start time</div>
-               <input class="input-field" type="time" id="appt" name="appt" style="width: 250px;">
+<!--               <input class="input-field" type="time" id="appt" name="appt" style="width: 250px;">-->
+                  <input type="text" id="timepicker-12-hr" name="timepicker-12-hr" class="timepicker-12-hr hasWickedpicker input-field" onkeypress="return false;" aria-showingpicker="true" tabindex="-1">
+
             </div>
             <div class="p-10 flex">
                <div class="lable-div">Source Location</div>
                <!-- <input id="tags" name="source_name" class="input-field" placeholder="Enter source location" style="width: 250px;"> -->
                <select id='selUserSource' style='width: 213px;border-radius: 20px;height: 31px;'>
                   <option value='0'>Select Source</option>
-                  <option value='Bajrang nagar, Manewada road, Nagpur(001)'>Bajrang nagar, Manewada road, Nagpur</option>
-                  <option value='Omkar nagar, Manewada road, Nagpur(002)'>Omkar nagar, Manewada road, Nagpur</option>
+                  <option value='Bajrang Nagar, Manewada Road, Nagpur(001)'>Bajrang Nagar, Manewada Road, Nagpur</option>
+                  <option value='Omkar Nagar, Manewada Road, Nagpur(002)'>Omkar Nagar, Manewada Road, Nagpur</option>
                   <option value='Rameshwari, Nagpur(003)'>Rameshwari, Nagpur</option>
-                  <option value='Chhatrapati Sqr, Nagpur(004)'>Chhatrapati Sqr, Nagpur</option>
-                  <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option>
-                  <option value='Trimurti nagar, Nagapur(006)'>Trimurti nagar, Nagapur</option>
+                  <option value='Chhatrapati Square, Nagpur(004)'>Chhatrapati Square, Nagpur</option>
+                  <option value='Jaitala, Nagpur(005)'>Jaitala, Nagpur</option>
+                  <option value='Trimurti Nagar, Nagpur(006)'>Trimurti Nagar, Nagpur</option>
                   <option value='T-point, Nagpur(007)'>T-point, Nagpur</option>
-                  <option value='Hingna road, Nagpur(008)'>Hingna road, Nagpur</option>
-                  <option value='Mahindra sqr, Nagpur(009)'>Mahindra sqr, Nagpur</option>
-                  <option value='IC sqr, Nagpur(010)'>IC sqr, Nagpur</option>
-                  <option value='YCC colleage, Hingna, Nagpur(011)'>YCC colleage, Hingna, Nagpur</option>
-                  <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option>
+                  <option value='Hingna Road, Nagpur(008)'>Hingna Road, Nagpur</option>
+                  <option value='Mahindra Square, Nagpur(009)'>Mahindra Square, Nagpur</option>
+                  <option value='IC Square, Nagpur(010)'>IC Square, Nagpur</option>
+                  <option value='YCCE College, Hingna, Nagpur(011)'>YCCE College, Hingna, Nagpur</option>
+                  <option value='Bajaj Nagar, Nagpur(012)'>Bajaj Nagar, Nagpur</option>
                </select>
             </div>
-            <!-- <div class="p-10 flex">
-                     <div class="lable-div"> Destination Location</div>
-                     <input id="tags1" name="destination_name" class="input-field" placeholder="Enter destination location" style="width: 250px;">
-               </div> -->
             <div class="p-10 flex">
                <div class="lable-div"> Destination Location</div>
                <select id='selUser' style='width: 213px;border-radius: 20px;height: 31px;'>
                   <option value='0'>Select Destination</option>
-                  <option value='Bajrang nagar, Manewada road, Nagpur(001)'>Bajrang nagar, Manewada road, Nagpur</option>
-                  <option value='Omkar nagar, Manewada road, Nagpur(002)'>Omkar nagar, Manewada road, Nagpur</option>
+                  <option value='Bajrang Nagar, Manewada Road, Nagpur(001)'>Bajrang Nagar, Manewada Road, Nagpur</option>
+                  <option value='Omkar Nagar, Manewada Road, Nagpur(002)'>Omkar Nagar, Manewada Road, Nagpur</option>
                   <option value='Rameshwari, Nagpur(003)'>Rameshwari, Nagpur</option>
-                  <option value='Chhatrapati Sqr, Nagpur(004)'>Chhatrapati Sqr, Nagpur</option>
-                  <option value='Jaitala, Nagapur(005)'>Jaitala, Nagapur</option>
-                  <option value='Trimurti nagar, Nagapur(006)'>Trimurti nagar, Nagapur</option>
+                  <option value='Chhatrapati Square, Nagpur(004)'>Chhatrapati Square, Nagpur</option>
+                  <option value='Jaitala, Nagpur(005)'>Jaitala, Nagpur</option>
+                  <option value='Trimurti Nagar, Nagpur(006)'>Trimurti Nagar, Nagpur</option>
                   <option value='T-point, Nagpur(007)'>T-point, Nagpur</option>
-                  <option value='Hingna road, Nagpur(008)'>Hingna road, Nagpur</option>
-                  <option value='Mahindra sqr, Nagpur(009)'>Mahindra sqr, Nagpur</option>
-                  <option value='IC sqr, Nagpur(010)'>IC sqr, Nagpur</option>
-                  <option value='YCC colleage, Hingna, Nagpur(011)'>YCC colleage, Hingna, Nagpur</option>
-                  <option value='Bajaj nagar, Nagpur(012)'>Bajaj nagar, Nagpur</option>
+                  <option value='Hingna Road, Nagpur(008)'>Hingna Road, Nagpur</option>
+                  <option value='Mahindra Square, Nagpur(009)'>Mahindra Square, Nagpur</option>
+                  <option value='IC Square, Nagpur(010)'>IC Square, Nagpur</option>
+                  <option value='YCCE College, Hingna, Nagpur(011)'>YCCE College, Hingna, Nagpur</option>
+                  <option value='Bajaj Nagar, Nagpur(012)'>Bajaj Nagar, Nagpur</option>
                </select>
-               <!-- <input type='button' value='Seleted option' id='but_read'>
-                   
-                   <br/>
-                   <div id='result'></div> -->
             </div>
             <div class="p-10" style="text-align: center;">
                <button class="btn success" onclick="confirmFunction()">Confirm</button>
@@ -393,9 +393,9 @@ tr:nth-child(even) {
                <th>Destination Location</th>
                <th>Date</th>
               <th>Time</th>
-              <th>Rider </th>
+              <th>Rider 1</th>
+              <th>Rider 2</th>
               <th>Action</th>
-              <!-- <th>Destination Location</th> -->
             </tr>
             <tbody id="td1">           
             </tbody>
