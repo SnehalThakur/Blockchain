@@ -298,6 +298,128 @@ tr:nth-child(even) {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.modale:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.opened:before {
+  display: block;
+}
+.opened .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  top: 20%;
+}
+.modal-dialog {
+  background: #fefefe;
+  border: #333333 solid 0px;
+  border-radius: 5px;
+  margin-left: -200px;
+  text-align:center;
+  position: fixed;
+  left: 50%;
+  top: -100%;
+  z-index: 11;
+  width: 360px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.3);
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+.modal-body {
+  padding: 20px;
+}
+.modal-body input{
+  width:200px;
+  padding:8px;
+  border:1px solid #ddd;
+  color:#888;
+  outline:0;
+  font-size:14px;
+  font-weight:bold
+}
+.modal-header,
+.modal-footer {
+  padding: 10px 20px;
+}
+.modal-footer {
+   margin-bottom: 10px;
+}
+.modal-header {
+  border-bottom: #eeeeee solid 1px;
+}
+.modal-header h2 {
+  font-size: 20px;
+}
+
+#toast,
+      #toast1 {
+         visibility: hidden;
+         max-width: 50px;
+         height: 50px;
+         /*margin-left: -125px;*/
+         margin: auto;
+         background-color: #333;
+         color: #fff;
+         text-align: center;
+         border-radius: 2px;
+
+         position: fixed;
+         z-index: 1;
+         left: 0;
+         right: 0;
+         bottom: 30px;
+         font-size: 17px;
+         white-space: nowrap;
+      }
+
+      #toast #img,
+      #toast1 #img {
+         width: 50px;
+         height: 50px;
+
+         float: left;
+
+         padding-top: 16px;
+         padding-bottom: 16px;
+
+         box-sizing: border-box;
+
+
+         background-color: #111;
+         color: #fff;
+      }
+
+      #toast #desc,
+      #toast1 #desc {
+
+         color: #fff;
+
+         padding: 16px;
+
+         overflow: hidden;
+         white-space: nowrap;
+      }
+
+      #toast.show,
+      #toast1.show {
+         visibility: visible;
+         -webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+         animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+      }
    </style>
 </head>
 
@@ -319,7 +441,7 @@ tr:nth-child(even) {
          <div class="left">
             <div class="overlay">
                <h1>Kaarpool</h1>
-               <p>Travel safely with us.</p>
+               <p>Travel safely with us.  </p>
             </div>
          </div>
    
@@ -415,6 +537,39 @@ tr:nth-child(even) {
       </div>
       <div id="desc">Invalid data please check.</div>
    </div>
+
+      <div id="toast">
+      <div id="img" style="color: green;">
+         <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+      </div>
+      <div id="desc">Driver ride confirm.</div>
+   </div>
+   <div id="toast1">
+      <div id="img" style="color: red;">
+         <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+      </div>
+      <div id="desc1">Invalid data please check.</div>
+   </div>
+
+      <div class="modale" aria-hidden="true">
+      <div class="modal-dialog">
+        <!-- <div class="modal-header">
+        </div> -->
+        <div class="modal-body" style="text-align: right;">
+         <a href="#" class="btn-close closemodale" aria-hidden="true" onclick="cancelFunction()">&times;</a>
+           <div style="text-align: center;">
+            <h4 id="riderinfo"> Please Confirm Ride</h4>
+           </div>
+
+      </div>
+        <div class="modal-footer">
+
+
+          <button href="#" class="btn" id="btn_ingresar" onclick="cancelRideFunction()">Cancel</button>
+          <button href="#" class="btn success" id="btn_ingresar"  onclick="successFunction()">Confirm</button>
+        </div>
+      </div>
+    </div>
    
    <!-- partial -->
 </body>

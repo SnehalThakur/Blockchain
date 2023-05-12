@@ -139,7 +139,8 @@ def driverRouteDataWithSrcDesTime():
         driverRouteResponse = driverRouteGetWithSrcDesTime(driverRouteDataRequest)
         print("Driver Route Info Response =", driverRouteResponse)
         if len(driverRouteResponse) > 0 and driverRouteResponse[0]["driverSlotStatus"] != "":
-            slotStatus = False
+            # todo : slot status logic
+            slotStatus = True
         else:
             slotStatus = True
         return {"status": slotStatus, "data": driverRouteResponse}
@@ -181,12 +182,49 @@ def driveRouteDataWithRiderName():
     # return render_template('riderRegister.html')
 
 
+@app.route('/updateDriveRouteDataWithRiderStatus', methods=('GET', 'POST'))
+def driveRouteDataWithRiderStatus():
+    if request.method == 'POST':
+        driveRouteDataRequestWithRiderName = request.get_json()
+        print("driveRouteDataRequest for driveRouteDataRequestWithRiderName=", driveRouteDataRequestWithRiderName)
+        driverRouteDataWithRiderNameResponse = updateDriveRouteWithRiderStatus(driveRouteDataRequestWithRiderName)
+        print("driverRouteDataWithRiderNameResponse =", driverRouteDataWithRiderNameResponse)
+        if driverRouteDataWithRiderNameResponse != None and driverRouteDataWithRiderNameResponse['rideSlotStatus'] == 0:
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteDataWithRiderNameResponse}
+
+
+@app.route('/updateDriveRouteDataCancelRider', methods=('GET', 'POST'))
+def driveRouteDataCancelRider():
+    if request.method == 'POST':
+        driveRouteDataRequestWithRiderName = request.get_json()
+        print("driveRouteDataRequest for driveRouteDataRequestWithRiderName=", driveRouteDataRequestWithRiderName)
+        driverRouteDataWithRiderNameResponse = updateDriveRouteCancelRider(driveRouteDataRequestWithRiderName)
+        print("driverRouteDataWithRiderNameResponse =", driverRouteDataWithRiderNameResponse)
+        if driverRouteDataWithRiderNameResponse != None and driverRouteDataWithRiderNameResponse['rideSlotStatus'] == 0:
+            slotStatus = False
+        else:
+            slotStatus = True
+        return {"status": slotStatus, "data": driverRouteDataWithRiderNameResponse}
+
 @app.route('/startDriveRide', methods=('GET', 'POST'))
 def driverRideStatus():
     if request.method == 'POST':
         driveRouteRideStatusRequest = request.get_json()
         print("driveRouteRideStatusRequest for driveRouteRideStatusRequest=", driveRouteRideStatusRequest)
         driverRouteRideStatusResponse = updateDriveRouteRideStatus(driveRouteRideStatusRequest)
+        print("driverRouteRideStatusResponse =", driverRouteRideStatusResponse)
+        return {"status": True, "data": driverRouteRideStatusResponse}\
+
+
+@app.route('/endDriveRide', methods=('GET', 'POST'))
+def driverRideStatusEnd():
+    if request.method == 'POST':
+        driveRouteRideStatusRequest = request.get_json()
+        print("driveRouteRideStatusRequest for driveRouteRideStatusRequest=", driveRouteRideStatusRequest)
+        driverRouteRideStatusResponse = updateDriveRouteRideStatusComplete(driveRouteRideStatusRequest)
         print("driverRouteRideStatusResponse =", driverRouteRideStatusResponse)
         return {"status": True, "data": driverRouteRideStatusResponse}
     # return render_template('riderRegister.html')
@@ -209,10 +247,19 @@ def getRiderBalanceData():
         getBalanceDataRequest = request.get_json()
         print(getBalanceDataRequest)
         name = getBalanceDataRequest['name']
-        riderBalance = print_eth_detail()
+        riderBalance = print_eth_detail_rider()
         print("riderBalance =", riderBalance)
         return {"name": name, "balance": riderBalance}
 
+@app.route('/getDriverBalance', methods=('GET', 'POST'))
+def getDriverBalanceData():
+    if request.method == 'POST':
+        getBalanceDataRequest = request.get_json()
+        print(getBalanceDataRequest)
+        name = getBalanceDataRequest['name']
+        driverBalance = print_eth_detail_driver()
+        print("driverBalance =", driverBalance)
+        return {"name": name, "balance": driverBalance}
 
 # @app.route('/retrieveDriverData', methods=('GET', 'POST'))
 # def retrieveDriverDataFromDB():
@@ -228,3 +275,4 @@ def getRiderBalanceData():
 # Run Server
 if __name__ == '__main__':
     app.run(debug=True)
+    # app.run(debug=True, host='192.168.43.140')

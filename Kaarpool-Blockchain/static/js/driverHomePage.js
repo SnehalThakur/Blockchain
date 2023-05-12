@@ -1,4 +1,5 @@
 var userData;
+var riderData;
 function init() {
   // initialisation stuff here
   userData = JSON.parse(sessionStorage.getItem("userData"));
@@ -23,19 +24,36 @@ function init() {
       }
       else{
       responseTableData= res.data
+      let riderConfirmDialog = false;
         res.data.forEach((element,index) => {
           let timeData = element.starttime.split("_");
           tdData +=  '<tr><td>'+element.source+'</td><td>'+element.destination+'</td><td>'+timeData[0]+'</td><td>'+timeData[1]
           +'</td><td>'+element.rider1+'</td><td>'+element.rider2+'</td>'
           if(element.rideStatus == 0){
             tdData += '<td><button type="button" onClick="clickTableRow('+index+')">Start Ride</button></td>'
+          }else if(element.rideStatus == 2){
+            tdData += '<td>Ride Completed</td>'
           }
           else{
-          tdData += '<td>Ride Started</td>'
+            tdData += '<td ><button type="button" onClick="clickTableRowEnd('+index+')">End Ride</button></td>'
           }
           tdData +='</tr>';
           // '</td><td>'+element.rider2+'</td><td>'+element.rider3+
+
+          if(element.rider1Status == 2){
+            riderConfirmDialog = true;
+            riderData = element
+            document.getElementById("riderinfo").innerHTML = "You got the new ride of " + element.rider1
+          }else if(element.rider2Status == 2){
+            riderConfirmDialog = true;
+            riderData = element
+            document.getElementById("riderinfo").innerHTML = "You got the new ride of " + element.rider2
+          }
         });
+
+        if (riderConfirmDialog) {
+            $('.modale').addClass('opened');
+        }
 
         document.getElementById('td1').innerHTML = tdData;
           xhttp.onreadystatechange = function () {
@@ -50,28 +68,135 @@ function init() {
     }
     else{
 //      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
-
     }
   };
-  xhttp.open("POST", "/getRiderBalance", true);
+  xhttp.open("POST", "/getDriverBalance", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(payloadString);
       }
-
     }
     else{
       document.getElementById('td1').innerHTML = '<tr>No Data available</tr>';
-
     }
   };
 
   xhttp.open("POST", "/getDriverRouteData", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(payloadString);
-
-
-
 }
+
+function cancelFunction(){
+  // $('.modale').addClass('opened');
+  $('.modale').removeClass('opened');
+  $('.modaleCancel').removeClass('opened');
+}
+
+function cancelRideFunction(){
+
+    let time = riderData.starttime.split("_");
+  console.log(time[1]);
+
+  let riderName = ""
+  if (riderData.rider2 !="  ()") {
+    riderName = riderData.rider2.split(" ")[0];
+  }else if (riderData.rider1 !="  ()") {
+    riderName = riderData.rider1.split(" ")[0];
+  }
+
+    let payload = {
+    'driveName': riderData.name,
+    'source':riderData.source,
+    'destination': riderData.destination,
+    'riderName': riderName,
+    'time': time[1],
+    'riderStatus': 4
+  }
+  console.log("payload: - ", payload);
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+  var payloadString = JSON.stringify(payload);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        let res = JSON.parse(this.responseText)
+        console.log(typeof this.responseText);
+        console.log(typeof res);
+        if (res.status) {
+
+          console.log("In side success");
+          launch_toast("toast", "Rider Cancelled Successfully.");
+           init();
+          $('.modale').removeClass('opened');
+        };
+      }
+        else {
+//          launch_toast("toast1", res?.data?.info);
+    //          document.getElementById("desc1").innerHTML = res?.data?.info;
+          $('.modale').removeClass('opened');
+        }
+      }
+    xhttp.open("POST", "/updateDriveRouteDataCancelRider", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payloadString);
+    console.log("Rider Cancel Confirm Event fired");
+
+    $('.modale').removeClass('opened');
+    $('.modaleCancel').removeClass('opened');
+}
+
+function successFunction(){
+  console.log("riderData: - ",riderData);
+  console.log("userData.name: - ",userData.name);
+  let time = riderData.starttime.split("_");
+  console.log(time[1]);
+
+  let riderName = ""
+  if (riderData.rider2 !="  ()") {
+    riderName = riderData.rider2.split(" ")[0];
+  }else if (riderData.rider1 !="  ()") {
+    riderName = riderData.rider1.split(" ")[0];
+  }
+
+    let payload = {
+    'driveName': riderData.name,
+    'source':riderData.source,
+    'destination': riderData.destination,
+    'riderName': riderName,
+    'time': time[1],
+    'riderStatus': 4
+  }
+  console.log("payload: - ", payload);
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+  var payloadString = JSON.stringify(payload);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        let res = JSON.parse(this.responseText)
+        console.log(typeof this.responseText);
+        console.log(typeof res);
+        if (res.status) {
+          // launch_toast("toast", res.message);
+          // sessionStorage.setItem("userData", this.responseText);
+          // window.location.href = "/driverHomePage";
+          console.log("In side success");
+          launch_toast("toast", "Rider Confirmed Successfully.");
+           init();
+          $('.modale').removeClass('opened');
+        };
+      }
+        else {
+//          launch_toast("toast1", res?.data?.info);
+    //          document.getElementById("desc1").innerHTML = res?.data?.info;
+          $('.modale').removeClass('opened');
+        }
+      }
+    xhttp.open("POST", "/updateDriveRouteDataWithRiderStatus", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payloadString);
+    console.log("Rider Confirm Event fired");
+}
+
 function clickTableRow( index){
     console.log("Index: -",index);
     console.log("element: -",responseTableData[index]);
@@ -147,7 +272,40 @@ function clickTableRow( index){
   xhttp.open("POST", "/startDriveRide", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(payloadString);
+}
 
+
+
+function clickTableRowEnd( index){
+    console.log("Index: -",index);
+    console.log("element: -",responseTableData[index]);
+
+    let payload = {
+    'driveName': userData.name,
+    'source': responseTableData[index].source ,
+    'destination': responseTableData[index].destination,
+    'time': responseTableData[index].starttime,
+  }
+  console.log("payload: - ", payload);
+  console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
+  var payloadString = JSON.stringify(payload);
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      let responseTextData = JSON.parse(this.responseText);
+      console.log(typeof responseTextData);
+      console.log(responseTextData);
+      init();
+    }
+    else{
+//      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
+        console.log("End Ride failed");
+    }
+  };
+  xhttp.open("POST", "/endDriveRide", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(payloadString);
 }
 
 init();
@@ -156,28 +314,28 @@ $(function () {
   //   {'locationTitle': 'Bajrang nagar, Manewada road, Nagpur','locationCode':'001'},
   //   {'locationTitle': 'Omkar nagar, Manewada road, Nagpur','locationCode':'002'},
   //   {'locationTitle': 'Rameshwari, Nagpur','locationCode':'003'},
-  //   {'locationTitle': 'Chhatrapati Sqr, Nagapur','locationCode':'004'},
-  //   {'locationTitle': 'Jaitala, Nagapur','locationCode':'005'},
-  //   {'locationTitle': 'Trimurti nagar, Nagapur','locationCode':'006'},
+  //   {'locationTitle': 'Chhatrapati Sqr, Nagpur','locationCode':'004'},
+  //   {'locationTitle': 'Jaitala, Nagpur','locationCode':'005'},
+  //   {'locationTitle': 'Trimurti nagar, Nagpur','locationCode':'006'},
   //   {'locationTitle': 'T-point, Nagpur','locationCode':'007'},
   //   {'locationTitle': 'Hingna road, Nagpur','locationCode':'008'},
   //   {'locationTitle': 'Mahindra sqr, Nagpur','locationCode':'009'},
   //   {'locationTitle': 'IC sqr, Nagpur','locationCode':'010'},
-  //   {'locationTitle': 'YCC colleage, Hingna, Nagpur','locationCode':'011'},
+  //   {'locationTitle': 'YCCE college, Hingna, Nagpur','locationCode':'011'},
   //   {'locationTitle': 'Bajaj nagar, Nagpur','locationCode':'012'},
   // ];
   // var availableTags = [
   //   'Bajrang nagar, Manewada road, Nagpur',
   //   'Omkar nagar, Manewada road, Nagpur',
   //   'Rameshwari, Nagpur',
-  //   'Chhatrapati Sqr, Nagapur',
-  //   'Jaitala, Nagapur',
-  //   'Trimurti nagar, Nagapur',
+  //   'Chhatrapati Sqr, Nagpur',
+  //   'Jaitala, Nagpur',
+  //   'Trimurti nagar, Nagpur',
   //   'T-point, Nagpur',
   //   'Hingna road, Nagpur',
   //   'Mahindra sqr, Nagpur',
   //   'IC sqr, Nagpur',
-  //   'YCC colleage, Hingna, Nagpur',
+  //   'YCCE college, Hingna, Nagpur',
   //   'Bajaj nagar, Nagpur',
   // ]
   // $("#tags").autocomplete({
@@ -268,3 +426,15 @@ $(document).ready(function () {
 
   });
 });
+
+function launch_toast(tosterName, msg) {
+  var x = document.getElementById(tosterName);
+  x.className = "show";
+  if(tosterName == "toast"){
+      document.getElementById("desc").innerHTML = msg;
+  }
+  else{
+      document.getElementById("desc1").innerHTML = msg;
+  }
+  setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+}

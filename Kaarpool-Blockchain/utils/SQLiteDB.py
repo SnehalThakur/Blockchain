@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 
 def createRiderTableIfNotExist():
-    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    sqlConnection = sql.connect(r"utils/SQLiteDB/riderData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -19,7 +19,7 @@ def createRiderTableIfNotExist():
 
 
 def createDriverTableIfNotExist():
-    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    sqlConnection = sql.connect(r"utils/SQLiteDB/driverData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -40,7 +40,7 @@ def createDriverTableIfNotExist():
 
 
 def createRiderRouteTableIfNotExist():
-    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    sqlConnection = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -57,7 +57,7 @@ def createRiderRouteTableIfNotExist():
 
 
 def createDriverRouteTableIfNotExist():
-    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    sqlConnection = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""
@@ -79,7 +79,7 @@ def createDriverRouteTableIfNotExist():
 
 
 def alterDriverRouteTable():
-    sqlConnection = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    sqlConnection = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     print(sqlConnection)
 
     sqlConnection.execute("""ALTER TABLE driverRoute ADD COLUMN rider2Status integer""")
@@ -90,7 +90,7 @@ def alterDriverRouteTable():
 
 def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseNumber, licenseValidity,
                      insuranceNumber):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
 
     cur.execute(
@@ -101,7 +101,7 @@ def insertDriverData(name, contactNo, password, gender, email, vehicle, licenseN
 
 
 def insertRiderData(name, contactNo, password, gender, email):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute("INSERT INTO rider (name, contactNo, password, gender, email) VALUES (?,?,?,?,?)",
                 (name, contactNo, password, gender, email))
@@ -110,7 +110,7 @@ def insertRiderData(name, contactNo, password, gender, email):
 
 
 def insertDriverRouteData(name, source, destination, availableSeats, starttime, endtime):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         "INSERT INTO driverRoute (name, source, destination, availableSeats, starttime, endtime, rider1, rideStatus, rider2) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -120,7 +120,7 @@ def insertDriverRouteData(name, source, destination, availableSeats, starttime, 
 
 
 def insertRiderRouteData(name, source, destination, time, confirmRideStatus, driverName):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     cur.execute(
         "INSERT INTO riderRoute (name, source, destination, time, confirmRideStatus, driverName) VALUES (?,?,?,?,?,?)",
@@ -129,8 +129,16 @@ def insertRiderRouteData(name, source, destination, time, confirmRideStatus, dri
     con.close()
 
 
+def deleteRiderRouteData(name, source, destination, time, driverName):
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
+    cur = con.cursor()
+    cur.execute(f"DELETE FROM riderRoute WHERE name='{name}' AND source='{source}' AND destination='{destination}' AND time='{time}' AND driverName='{driverName}'")
+    con.commit()
+    con.close()
+
+
 def retrieveDriverData():
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driver")
     driverData = cur.fetchall()
@@ -155,7 +163,7 @@ def retrieveDriverData():
 
 
 def retrieveRiderData():
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM rider")
     riderData = cur.fetchall()
@@ -176,7 +184,7 @@ def retrieveRiderData():
 
 
 def retrieveDriverRouteData():
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM driverRoute")
     driverRouteData = cur.fetchall()
@@ -202,7 +210,7 @@ def retrieveDriverRouteData():
 
 
 def retrieveRiderRouteData():
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     cur.execute("SELECT * FROM riderRoute")
     riderRouteData = cur.fetchall()
@@ -224,7 +232,7 @@ def retrieveRiderRouteData():
 
 
 def retrieveDriverDataWithName(name):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE name='{name}'")
     driverDataWithName = cur.fetchall()
@@ -234,7 +242,7 @@ def retrieveDriverDataWithName(name):
 
 
 def retrieveRiderDataWithName(name):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE name='{name}'")
     riderDataWithName = cur.fetchall()
@@ -244,7 +252,7 @@ def retrieveRiderDataWithName(name):
 
 
 def retrieveDriverDataWithEmail(email):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE email='{email}'")
     driverDataWithEmail = cur.fetchall()
@@ -253,7 +261,7 @@ def retrieveDriverDataWithEmail(email):
 
 
 def retrieveDriverDataWithLicenseNumber(licenseNumber):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE licenseNumber='{licenseNumber}'")
     driverDataWithLicenseNumber = cur.fetchall()
@@ -262,7 +270,7 @@ def retrieveDriverDataWithLicenseNumber(licenseNumber):
 
 
 def retrieveRiderDataWithEmail(email):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE email='{email}'")
     riderDataWithEmail = cur.fetchall()
@@ -271,7 +279,7 @@ def retrieveRiderDataWithEmail(email):
 
 
 def retrieveDriverDataWithNameAndPassword(name, password):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE name='{name}' AND password='{password}'")
     driverDataWithNameAndPwd = cur.fetchall()
@@ -280,7 +288,7 @@ def retrieveDriverDataWithNameAndPassword(name, password):
 
 
 def retrieveRiderDataWithNameAndPassword(name, password):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE name='{name}' AND password='{password}'")
     riderDataWithNameAndPwd = cur.fetchall()
@@ -289,7 +297,7 @@ def retrieveRiderDataWithNameAndPassword(name, password):
 
 
 def retrieveDriverDataWithEmailAndPassword(email, password):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driver WHERE email='{email}' AND password='{password}'")
     driverDataWithEmailAndPwd = cur.fetchall()
@@ -298,7 +306,7 @@ def retrieveDriverDataWithEmailAndPassword(email, password):
 
 
 def retrieveRiderDataWithEmailAndPassword(email, password):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM rider WHERE email='{email}' AND password='{password}'")
     riderDataWithEmailAndPwd = cur.fetchall()
@@ -307,7 +315,7 @@ def retrieveRiderDataWithEmailAndPassword(email, password):
 
 
 def retrieveDriverRouteDataWithName(name):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE name='{name}' ORDER BY id DESC LIMIT 1")
     driverRouteDataWithName = cur.fetchall()
@@ -323,23 +331,23 @@ def retrieveDriverRouteDataWithName(name):
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
                           "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
-                          "rider1": rider1Name + "  (" + rider1Gender + ")",
-                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "rider1": "" if rider1Name is None or "" else rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name + "  (" + rider2Gender + ")",
                           "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
-                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
@@ -348,7 +356,7 @@ def retrieveDriverRouteDataWithName(name):
 
 
 def retrieveRiderRouteDataWithNameSourceDestination(name, source, destination):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE name='{name}' AND source='{source}' AND destination='{destination}'")
     riderRouteDataWithName = cur.fetchall()
@@ -367,7 +375,7 @@ def retrieveRiderRouteDataWithNameSourceDestination(name, source, destination):
 
 
 def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}'")
     driverRouteDataWithSrcDes = cur.fetchall()
@@ -382,23 +390,23 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None  and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
                           "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
-                          "rider1": rider1Name + "  (" + rider1Gender + ")",
-                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "rider1": "" if rider1Name is None or "" else rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name + "  (" + rider2Gender + ")",
                           "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
-                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
@@ -407,7 +415,7 @@ def retrieveDriverRouteDataWithSourceAndDestination(source, destination):
 
 
 def retrieveDriverRouteDataWithSourceTimeAndDestination(source, destination, time):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         f"SELECT * FROM driverRoute WHERE source='{source}' AND destination='{destination}' AND starttime='{time}'")
@@ -423,23 +431,23 @@ def retrieveDriverRouteDataWithSourceTimeAndDestination(source, destination, tim
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None  and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
                           "availableSeats": item[4], "starttime": item[5], "endtime": item[6],
-                          "rider1": rider1Name + "  (" + rider1Gender + ")",
-                          "rideStatus": item[8], "rider2": rider2Name + "  (" + rider2Gender + ")",
+                          "rider1": "" if rider1Name is None or "" else rider1Name + "  (" + rider1Gender + ")",
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name + "  (" + rider2Gender + ")",
                           "driverGender": driverDetail[4], "rider1Gender": rider1Gender,
-                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider1Status": item[11],
+                          "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
         driverRouteData_accumulator.append(driverDataDict)
     print("driverRouteData_accumulator =", driverRouteData_accumulator)
@@ -448,7 +456,7 @@ def retrieveDriverRouteDataWithSourceTimeAndDestination(source, destination, tim
 
 
 def retrieveDriverRouteDataWithDriverNameSourceAndDestination(driverName, source, destination):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}'")
@@ -464,20 +472,20 @@ def retrieveDriverRouteDataWithDriverNameSourceAndDestination(driverName, source
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
-                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": "" if rider1Name is None or "" else rider1Name,
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name, "driverGender": driverDetail[4],
                           "rider1Gender": rider1Gender,
                           "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
@@ -488,7 +496,7 @@ def retrieveDriverRouteDataWithDriverNameSourceAndDestination(driverName, source
 
 
 def retrieveDriverRouteDataWithDriverNameSourceDestinationAndTime(driverName, source, destination, time):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
@@ -504,20 +512,20 @@ def retrieveDriverRouteDataWithDriverNameSourceDestinationAndTime(driverName, so
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
-                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": "" if rider1Name is None or "" else rider1Name,
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name, "driverGender": driverDetail[4],
                           "rider1Gender": rider1Gender,
                           "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
@@ -528,7 +536,7 @@ def retrieveDriverRouteDataWithDriverNameSourceDestinationAndTime(driverName, so
 
 
 def retrieveDriverRouteDataWithDriverNameRider1NameSourceDestinationAndTime(driverName, source, destination, time, riderName):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}' AND rider1='{riderName}'")
@@ -544,20 +552,20 @@ def retrieveDriverRouteDataWithDriverNameRider1NameSourceDestinationAndTime(driv
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
-                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": "" if rider1Name is None or "" else rider1Name,
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name, "driverGender": driverDetail[4],
                           "rider1Gender": rider1Gender,
                           "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
@@ -568,7 +576,7 @@ def retrieveDriverRouteDataWithDriverNameRider1NameSourceDestinationAndTime(driv
 
 
 def retrieveDriverRouteDataWithDriverNameRider2NameSourceDestinationAndTime(driverName, source, destination, time, riderName):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     cur.execute(
         f"SELECT * FROM driverRoute WHERE name='{driverName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}' AND rider2='{riderName}'")
@@ -584,20 +592,20 @@ def retrieveDriverRouteDataWithDriverNameRider2NameSourceDestinationAndTime(driv
         rider1Gender = ""
         rider2Gender = ""
         driverDetail = retrieveDriverDataWithName(driverName)[0]
-        if rider1Name != "":
+        if rider1Name != "" and rider1Name != None:
             rider1Detail = retrieveRiderDataWithName(rider1Name)[0]
             if rider1Detail != "":
                 rider1Gender = rider1Detail[4]
-        if rider2Name != "":
+        if rider2Name != "" and rider2Name != None:
             rider2Detail = retrieveRiderDataWithName(rider2Name)[0]
             if rider2Detail != "":
                 rider2Gender = rider2Detail[4]
         slotStatus = ""
-        if rider1Name != "" and rider2Name != "":
+        if rider1Name != "" and rider2Name != "" and rider1Name != None and rider2Name != None:
             slotStatus = False
         driverDataDict = {"id": item[0], "name": driverName, "source": item[2], "destination": item[3],
-                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": rider1Name,
-                          "rideStatus": item[8], "rider2": rider2Name, "driverGender": driverDetail[4],
+                          "availableSeats": item[4], "starttime": item[5], "endtime": item[6], "rider1": "" if rider1Name is None or "" else rider1Name,
+                          "rideStatus": item[8], "rider2": "" if rider2Name is None or "" else rider2Name, "driverGender": driverDetail[4],
                           "rider1Gender": rider1Gender,
                           "rider2Gender": rider2Gender, "rider1Status": item[10], "rider2Status": item[11],
                           "driverSlotStatus": slotStatus}
@@ -608,7 +616,7 @@ def retrieveDriverRouteDataWithDriverNameRider2NameSourceDestinationAndTime(driv
 
 
 def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
     riderRouteDataWithSrcDes = cur.fetchall()
@@ -623,7 +631,7 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
 
 
 def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     cur.execute(f"SELECT * FROM riderRoute WHERE source='{source}' AND destination='{destination}'")
     riderRouteDataWithSrcDes = cur.fetchall()
@@ -641,57 +649,135 @@ def retrieveRiderRouteDataWithSourceAndDestination(source, destination):
     return riderRouteData_accumulator
 
 
-def updateDriverRouteDataWithRider1Name(driveName, source, destination, riderName="", time="", rider1Status=1):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+def updateDriverRouteDataWithRider1Name(driveName, source, destination, riderName="", time="", rider1Status=2):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
-    # Updating - ,availableSeats=''
-    cur.execute(f"UPDATE driverRoute SET rider1 = '{riderName}', rider1Status = {rider1Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
+    query = f"UPDATE driverRoute SET rider1 = '{riderName}' , rider1Status = {rider1Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider1 =", query)
+    cur.execute(query)
+    con.commit()
+    # query = f"UPDATE driverRoute SET rider1Status = {rider1Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    # print("query updateDriverRouteDataWithRider1Name rider1Status =", query)
+    # cur.execute(query)
+    # con.commit()
+    con.close()
+
+
+def updateDriverRouteDataWithRider1Status(driveName, source, destination, riderName="", time="", rider1Status=2):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    query = f"UPDATE driverRoute SET rider1Status = {rider1Status} WHERE rider1 = '{riderName}' AND name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider1 =", query)
+    cur.execute(query)
     con.commit()
     con.close()
 
 
-def updateDriverRouteDataWithRider2Name(driveName, source, destination, riderName="", time="", rider2Status=1):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+def updateDriverRouteDataWithRider2Status(driveName, source, destination, riderName="", time="", rider2Status=2):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
-    # Updating - ,availableSeats=''
-    cur.execute(
-        f"UPDATE driverRoute SET rider2='{riderName}', rider2Status={rider2Status}  WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'")
+    query = f"UPDATE driverRoute SET rider2Status = {rider2Status} WHERE rider2 = '{riderName}' AND name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider2 =", query)
+    cur.execute(query)
     con.commit()
+    con.close()
+
+
+def updateDriverRouteDataCancelRider1(driveName, source, destination, riderName="", time="", rider1Status=None):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    query = f"UPDATE driverRoute SET rider1 = NULL , rider1Status = {rider1Status} WHERE rider1 = '{riderName}' AND name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider1 =", query)
+    cur.execute(query)
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteDataCancelRider2(driveName, source, destination, riderName="", time="", rider2Status=None):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    query = f"UPDATE driverRoute SET rider2 = NULL , rider2Status = {rider2Status} WHERE rider2 = '{riderName}' AND name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider2 =", query)
+    cur.execute(query)
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteDataWithRider2Name(driveName, source, destination, riderName="", time="", rider2Status=2):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    query = f"UPDATE driverRoute SET rider2 = '{riderName}' , rider2Status = {rider2Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    print("query updateDriverRouteDataWithRider1Name rider1 =", query)
+    cur.execute(query)
+    con.commit()
+    # query = f"UPDATE driverRoute SET rider2Status = {rider2Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}'"
+    # print("query updateDriverRouteDataWithRider1Name rider1Status =", query)
+    # cur.execute(query)
+    # con.commit()
     con.close()
 
 
 def updateRiderRouteDataWithDriverName(driveName, source, destination, riderName, time):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     # Updating
-    cur.execute(
-        f"UPDATE riderRoute SET driverName = '{driveName}', confirmRideStatus = '1' WHERE name='{riderName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+    cur.execute(f"UPDATE riderRoute SET driverName = '{driveName}' WHERE name='{riderName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+    con.commit()
+    cur.execute(f"UPDATE riderRoute SET confirmRideStatus = '1' WHERE name='{riderName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
     con.commit()
     con.close()
 
 
-def updateRiderRouteStatus(riderName):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderRouteData.db")
+def updateRiderRouteStatus(riderName, rideStatus):
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
     cur = con.cursor()
     # Updating
     cur.execute(
-        f"UPDATE riderRoute SET confirmRideStatus = '0' WHERE name='{riderName}';")
+        f"UPDATE riderRoute SET confirmRideStatus = '{rideStatus}' WHERE name='{riderName}';")
     con.commit()
     con.close()
 
 
-def updateDriverRouteRideStatus(driveName, source, destination, time):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+def updateRiderRouteDataWithRideStatus(source, destination, time="", rideStatus=2):
+    con = sql.connect(r"utils/SQLiteDB/riderRouteData.db")
+    cur = con.cursor()
+    cur.execute(f"UPDATE riderRoute SET confirmRideStatus = '{rideStatus}' WHERE source='{source}' AND destination='{destination}' AND time='{time}'")
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteRideStatus(driveName, source, destination, time, rideStatus):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     # Updating
     cur.execute(
-        f"UPDATE driverRoute SET rideStatus = '1' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+        f"UPDATE driverRoute SET rideStatus = '{rideStatus}' WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteRideStatusRider1(driveName, source, destination, time, rideStatus, rider1Status):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    # Updating
+    cur.execute(
+        f"UPDATE driverRoute SET rideStatus = '{rideStatus}' , rider1Status = {rider1Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
+    con.commit()
+    con.close()
+
+
+def updateDriverRouteRideStatusRider2(driveName, source, destination, time, rideStatus, rider2Status):
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
+    cur = con.cursor()
+    # Updating
+    cur.execute(
+        f"UPDATE driverRoute SET rideStatus = '{rideStatus}' , rider2Status = {rider2Status} , rider1Status = {rider2Status} WHERE name='{driveName}' AND source='{source}' AND destination='{destination}' AND starttime='{time}';")
     con.commit()
     con.close()
 
 
 def updateDriverRouteDeleteRiderName(driveName, source, destination, time, riderName):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverRouteData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverRouteData.db")
     cur = con.cursor()
     # Updating
     cur.execute(
@@ -701,7 +787,7 @@ def updateDriverRouteDeleteRiderName(driveName, source, destination, time, rider
 
 
 def updateDriverBalanceWithName(name, balance):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\driverData.db")
+    con = sql.connect(r"utils/SQLiteDB/driverData.db")
     cur = con.cursor()
     # Updating
     cur.execute(
@@ -711,7 +797,7 @@ def updateDriverBalanceWithName(name, balance):
 
 
 def updateRiderBalanceWithName(name, balance):
-    con = sql.connect(r"C:\Users\snehal\PycharmProjects\KaarpoolBlockchain\utils\SQLiteDB\riderData.db")
+    con = sql.connect(r"utils/SQLiteDB/riderData.db")
     cur = con.cursor()
     # Updating
     cur.execute(

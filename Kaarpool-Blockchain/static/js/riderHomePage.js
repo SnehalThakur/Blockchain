@@ -63,44 +63,44 @@ function searchFunction(){
   }
   else {
   let rideFaire;
-  if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Omkar nagar, Manewada road, Nagpur(002)") ||
-  (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Omkar nagar, Manewada road, Nagpur(002)")){
+  if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Omkar Nagar, Manewada Road, Nagpur(002)") ||
+  (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Omkar Nagar, Manewada Road, Nagpur(002)")){
     document.getElementById('rideFire').innerHTML = "40 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Rameshwari, Nagpur(003)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Rameshwari, Nagpur(003)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Rameshwari, Nagpur(003)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Rameshwari, Nagpur(003)")){
     document.getElementById('rideFire').innerHTML = "60 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Chhatrapati Sqr, Nagpur(004)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Chhatrapati Sqr, Nagpur(004)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Chhatrapati Square, Nagpur(004)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Chhatrapati Square, Nagpur(004)")){
     document.getElementById('rideFire').innerHTML = "80 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Trimurti nagar, Nagapur(006)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Trimurti nagar, Nagapur(006)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Trimurti Nagar, Nagpur(006)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Trimurti Nagar, Nagpur(006)")){
     document.getElementById('rideFire').innerHTML = "100 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="T-point, Nagpur(007)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="T-point, Nagpur(007)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="T-point, Nagpur(007)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="T-point, Nagpur(007)")){
     document.getElementById('rideFire').innerHTML = "120 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Hingna road, Nagpur(008)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Hingna road, Nagpur(008)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Hingna Road, Nagpur(008)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Hingna Road, Nagpur(008)")){
     document.getElementById('rideFire').innerHTML = "140 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Hingna road, Nagpur(008)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Hingna road, Nagpur(008)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Hingna Road, Nagpur(008)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Hingna Road, Nagpur(008)")){
     document.getElementById('rideFire').innerHTML = "140 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="Mahindra sqr, Nagpur(009)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="Mahindra sqr, Nagpur(009)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="Mahindra Square, Nagpur(009)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="Mahindra Square, Nagpur(009)")){
     document.getElementById('rideFire').innerHTML = "160 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="IC sqr, Nagpur(010)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="IC sqr, Nagpur(010)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="IC Square, Nagpur(010)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="IC Square, Nagpur(010)")){
     document.getElementById('rideFire').innerHTML = "180 rs"
   }
-  else if((sourceLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" && destinationLoacation =="YCC colleage, Hingna, Nagpur(011)") ||
-   (destinationLoacation=="Bajrang nagar, Manewada road, Nagpur(001)" &&  sourceLoacation=="YCC colleage, Hingna, Nagpur(011)")){
+  else if((sourceLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" && destinationLoacation =="YCCE College, Hingna, Nagpur(011)") ||
+   (destinationLoacation=="Bajrang Nagar, Manewada Road, Nagpur(001)" &&  sourceLoacation=="YCCE College, Hingna, Nagpur(011)")){
     document.getElementById('rideFire').innerHTML = "220 rs"
   }
   else{
@@ -129,65 +129,113 @@ function searchFunction(){
           document.getElementById("tableDiv").style.display = "block";
           document.getElementById("tableDiv1").style.display = "block";
 
-
           let tdData ='';
           responseSearchData = res.data;
-      if(res.data?.length == 0){
-        document.getElementById('td1').innerHTML = '<tr style="text-align:center">No Data avaliable</tr>';
-      }
-      else{
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              console.log(this.responseText);
-
-
-            }
-            else{
-        //      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
-
-            }
-          };
-          xhttp.open("POST", "/getRiderRouteDataWithName", true);
-          xhttp.setRequestHeader("Content-type", "application/json");
-          xhttp.send(payloadString);
-        tableResponseData= res.data;
-        res.data.forEach((element,inx) => {
-          // let timeData = element.starttime.split("_");
-          tdData +=  '<tr class="openmodale" onClick="clickTableRow('+inx+')" ><td class="openmodale">'+element.name+'<strong style="font-size:12px;font-weight:400;    margin-left: 10px;"> ('+element.driverGender+')</strong></td>'+
-          '<td class="openmodale">'+element.source+'</td>'+
-          '<td class="openmodale">'+element.destination+'</td>'+
-          '<td class="openmodale">'+element.starttime+'</td>'
-          if(element.rideStatus == 0){
-            tdData += '<td class="openmodale">Inactive</td>'
-          }
-          else if(element.rideStatus == 1){
-            tdData += '<td class="openmodale" style="color:yellow">In Progress</td>'
-          }
-          else if(element.rideStatus == 2){
-            tdData += '<td class="openmodale" style="color:green">Active</td>'
+          if(res.data?.length == 0){
+            document.getElementById('td1').innerHTML = '<tr style="text-align:center">No Data avaliable</tr>';
           }
           else{
-            tdData += '<td class="openmodale"></td>'
-          }
-          tdData +='</tr>';
-        });
-        document.getElementById('td1').innerHTML = tdData;
-        console.log(typeof this.responseText);
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
 
 
-          console.log("responseSearchData: - ",res);
-          res.data.forEach(function(item){
-          let rider1= item.rider1.split("(");
-          let rider2= item.rider2.split("(");
+                }
+                else{
+            //      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
 
-          if(rider1[0].trim() == userData.name){
-            popupStatus = true;
+                }
+              };
+              xhttp.open("POST", "/getRiderRouteDataWithName", true);
+              xhttp.setRequestHeader("Content-type", "application/json");
+              xhttp.send(payloadString);
+            tableResponseData= res.data;
+            res.data.forEach((element,inx) => {
+              // let timeData = element.starttime.split("_");
+              tdData +=  '<tr class="openmodale" onClick="clickTableRow('+inx+')" ><td class="openmodale">'+element.name+'<strong style="font-size:12px;font-weight:400;    margin-left: 10px;"> ('+element.driverGender+')</strong></td>'+
+              '<td class="openmodale">'+element.source+'</td>'+
+              '<td class="openmodale">'+element.destination+'</td>'+
+              '<td class="openmodale">'+element.starttime+'</td>'
+              let rider1Name= element.rider1.split(" ")[0];
+              console.log("rider1Name =", rider1Name)
+              let rider2Name= element?.rider2.split(" ")[0];
+              console.log("rider2Name =", rider2Name)
+              if(rider1Name == userData.name){
+                 if(element.rider1Status == 0){
+                    tdData += '<td class="openmodale">Inactive</td>'
+                  }
+                  else if(element.rider1Status == 2){
+                    tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+                  }
+                  else if(element.rider1Status == 1){
+                    tdData += '<td class="openmodale" style="color:green">Active</td>'
+                  }
+                  else if(element.rider1Status == 3){
+                    tdData += '<td class="openmodale" style="color:green">Completed</td>'
+                  }
+                  else if(element.rider1Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+                 }
+                  else{
+                    tdData += '<td class="openmodale"></td>'
+                  }
+              }else if(rider2Name == userData.name){
+                 if(element.rider2Status == 0){
+                    tdData += '<td class="openmodale">Inactive</td>'
+                  }
+                  else if(element.rider2Status == 2){
+                    tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+                  }
+                  else if(element.rider2Status == 1){
+                    tdData += '<td class="openmodale" style="color:green">Active</td>'
+                  }
+                  else if(element.rider2Status == 3){
+                    tdData += '<td class="openmodale" style="color:green">Completed</td>'
+                  }
+                  else if(element.rider2Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+                    }
+                  else{
+                    tdData += '<td class="openmodale"></td>'
+                  }
+              }else{
+                tdData += '<td class="openmodale">Inactive</td>'
+              }
 
-          }
-          else if(rider2[0].trim() == userData.name)
-            popupStatus = true;
-          })
-      }
+              if(element?.rider1 != "" || element?.rider1 != "  ()"){
+                tdData += '<td class="openmodale">'+ element.rider1 +'</td>'
+              }else{
+                tdData += '<td class="openmodale"></td>'
+              }
+              if(element?.rider2 != "" || element?.rider2 != "  ()"){
+                tdData += '<td class="openmodale">'+ element.rider2 +'</td>'
+              }else{
+                tdData += '<td class="openmodale"></td>'
+              }
+              tdData +='</tr>';
+            });
+            document.getElementById('td1').innerHTML = tdData;
+            console.log(typeof this.responseText);
+
+
+            console.log("responseSearchData: - ",res);
+            res.data.forEach(function(item){
+            let rider1= item.rider1.split("(");
+            let rider2= item.rider2.split("(");
+
+            if(rider1[0].trim() == userData.name){
+              popupStatus = true;
+//              break;
+            }
+            else if(rider2[0].trim() == userData.name){
+              popupStatus = true;
+//              break;
+            }
+            else{
+            popupStatus = false ;
+            }
+            })
+        }
           // init();
 
         }
@@ -217,6 +265,7 @@ function launch_toast(tosterName, msg) {
 var selectedData;
 var selectedIndex;
 var popupStatus = false;
+
 function clickTableRow(rowData){
   console.log("rowData: - ",rowData);
   console.log("responseSearchData: -",responseSearchData);
@@ -233,8 +282,8 @@ function clickTableRow(rowData){
     $('.modaleCancel').addClass('opened');
     launch_toast('toast1','Ride is already book.')
   }
-
 }
+
 function cancelFunction(){
   // $('.modale').addClass('opened');
   $('.modale').removeClass('opened');
@@ -251,7 +300,8 @@ function successFunction(){
     'source':selectedData.source,
     'destination': selectedData.destination,
     'riderName': userData.name,
-    'time': time[1]
+    'time': time[1],
+    'riderStatus': 2
   }
   console.log("JSON.stringify(payload): - ", JSON.stringify(payload));
     var payloadString = JSON.stringify(payload);
@@ -266,7 +316,7 @@ function successFunction(){
           // launch_toast("toast", res.message);
           // sessionStorage.setItem("userData", this.responseText);
           // window.location.href = "/driverHomePage";
-          console.log("In side sucess");
+          console.log("In side success");
           launch_toast("toast", "Ride booked successfully.");
           // init();
           $('.modale').removeClass('opened');
@@ -281,21 +331,17 @@ function successFunction(){
             if (this.readyState == 4 && this.status == 200) {
               console.log(this.responseText);
               console.log(typeof this.responseText);
-
               responseSearchData = JSON.parse(this.responseText).data;
               console.log("responseSearchData: - ",responseSearchData);
               responseSearchData.forEach(function(item){
               let rider1= item.rider1.split("(");
               let rider2= item.rider2.split("(");
-
               if(rider1[0].trim() == userData.name){
                 popupStatus = true;
-
               }
               else if(rider2[0].trim() == userData.name)
                 popupStatus = true;
               })
-
             }
             else{
         //      document.getElementById('td1').innerHTML = '<tr>No Data avaliable</tr>';
@@ -313,16 +359,59 @@ function successFunction(){
           '<td class="openmodale">'+element.source+'</td>'+
           '<td class="openmodale">'+element.destination+'</td>'+
           '<td class="openmodale">'+element.starttime+'</td>'
-          if(selectedIndex != inx){
+          let rider1Name= element.rider1.split(" ")[0];
+          console.log("rider1Name =", rider1Name)
+          let rider2Name= element?.rider2.split(" ")[0];
+          console.log("rider2Name =", rider2Name)
+          if(rider1Name == userData.name){
+             if(element.rider1Status == 0){
+                tdData += '<td class="openmodale">Inactive</td>'
+              }
+              else if(element.rider1Status == 2){
+                tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+              }
+              else if(element.rider1Status == 1){
+                tdData += '<td class="openmodale" style="color:green">Active</td>'
+              }
+              else if(element.rider1Status == 3){
+                tdData += '<td class="openmodale" style="color:green">Completed</td>'
+              }
+              else if(element.rider1Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+              }
+              else{
+                tdData += '<td class="openmodale"></td>'
+              }
+          }else if(rider2Name == userData.name){
+             if(element.rider2Status == 0){
+                tdData += '<td class="openmodale">Inactive</td>'
+              }
+              else if(element.rider2Status == 2){
+                tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+              }
+              else if(element.rider2Status == 1){
+                tdData += '<td class="openmodale" style="color:green">Active</td>'
+              }
+              else if(element.rider2Status == 3){
+                tdData += '<td class="openmodale" style="color:green">Completed</td>'
+              }
+              else if(element.rider2Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+              }
+              else{
+                tdData += '<td class="openmodale"></td>'
+              }
+          }else{
             tdData += '<td class="openmodale">Inactive</td>'
           }
-//          else if(element.rideStatus == 1){
-//            tdData += '<td class="openmodale" style="color:yellow">In Progress</td>'
-//          }
-          else if(selectedIndex == inx){
-            tdData += '<td class="openmodale" style="color:green">Active</td>'
+          if(element?.rider1 != "" || element?.rider1 != "  ()"){
+            tdData += '<td class="openmodale">'+ element.rider1 +'</td>'
+          }else{
+            tdData += '<td class="openmodale"></td>'
           }
-          else{
+          if(element?.rider2 != "" || element?.rider2 != "  ()"){
+            tdData += '<td class="openmodale">'+ element.rider2 +'</td>'
+          }else{
             tdData += '<td class="openmodale"></td>'
           }
           tdData +='</tr>';
@@ -369,7 +458,7 @@ function cancelRideFunction(){
           // launch_toast("toast", res.message);
           // sessionStorage.setItem("userData", this.responseText);
           // window.location.href = "/driverHomePage";
-          console.log("In side sucess");
+          console.log("In side success");
           launch_toast("toast", "Ride cancel successfully.");
           // init();
           $('.modaleCancel').removeClass('opened');
@@ -403,17 +492,50 @@ function cancelRideFunction(){
           '<td class="openmodale">'+element.source+'</td>'+
           '<td class="openmodale">'+element.destination+'</td>'+
           '<td class="openmodale">'+element.starttime+'</td>'
-          if(selectedIndex != inx){
+          let rider1Name= element.rider1.split(" ")[0];
+          console.log("rider1Name =", rider1Name)
+          let rider2Name= element?.rider2.split(" ")[0];
+          console.log("rider2Name =", rider2Name)
+          if(rider1Name == userData.name){
+             if(element.rider1Status == 0){
+                tdData += '<td class="openmodale">Inactive</td>'
+              }
+              else if(element.rider1Status == 2){
+                tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+              }
+              else if(element.rider1Status == 1){
+                tdData += '<td class="openmodale" style="color:green">Active</td>'
+              }
+              else if(element.rider1Status == 3){
+                tdData += '<td class="openmodale" style="color:green">Completed</td>'
+              }
+              else if(element.rider1Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+              }
+              else{
+                tdData += '<td class="openmodale"></td>'
+              }
+          }else if(rider2Name == userData.name){
+             if(element.rider2Status == 0){
+                tdData += '<td class="openmodale">Inactive</td>'
+              }
+              else if(element.rider2Status == 2){
+                tdData += '<td class="openmodale" style="color:orange">In Progress</td>'
+              }
+              else if(element.rider2Status == 1){
+                tdData += '<td class="openmodale" style="color:green">Active</td>'
+              }
+              else if(element.rider2Status == 3){
+                tdData += '<td class="openmodale" style="color:green">Completed</td>'
+              }
+              else if(element.rider2Status == 4){
+                tdData += '<td class="openmodale" style="color:blue">Confirmed</td>'
+              }
+              else{
+                tdData += '<td class="openmodale"></td>'
+              }
+          }else{
             tdData += '<td class="openmodale">Inactive</td>'
-          }
-//          else if(element.rideStatus == 1){
-//            tdData += '<td class="openmodale" style="color:yellow">In Progress</td>'
-//          }
-          else if(selectedIndex == inx){
-            tdData += '<td class="openmodale" style="color:green">Active</td>'
-          }
-          else{
-            tdData += '<td class="openmodale"></td>'
           }
           tdData +='</tr>';
         });
